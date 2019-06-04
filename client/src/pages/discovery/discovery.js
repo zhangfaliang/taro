@@ -1,3 +1,4 @@
+import Nerv from "nervjs";
 import {
   Block,
   View,
@@ -6,22 +7,22 @@ import {
   SwiperItem,
   Image,
   Text
-} from '@tarojs/components'
-import Taro from '@tarojs/taro'
-import withWeapp from '@tarojs/with-weapp'
-import './discovery.scss'
+} from "@tarojs/components";
+import Taro from "@tarojs/taro-h5";
+import withWeapp from "@tarojs/with-weapp";
+import "./discovery.scss";
 //discovery.js
-var util = require('../../utils/util.js')
+var util = require("../../utils/util.js");
 
-@withWeapp('Page')
-class _C extends Taro.Component {
+@withWeapp("Page")
+class Discovery extends Taro.Component {
   state = {
-    navTab: ['推荐', '圆桌', '热门', '收藏'],
-    currentNavtab: '0',
+    navTab: ["推荐", "圆桌", "热门", "收藏"],
+    currentNavtab: "0",
     imgUrls: [
-      '../../images/24213.jpg',
-      '../../images/24280.jpg',
-      '../../images/1444983318907-_DSC1826.jpg'
+      "../../images/24213.jpg",
+      "../../images/24280.jpg",
+      "../../images/1444983318907-_DSC1826.jpg"
     ],
     indicatorDots: false,
     autoplay: true,
@@ -29,76 +30,76 @@ class _C extends Taro.Component {
     duration: 1000,
     feed: [],
     feed_length: 0
-  }
+  };
   componentWillMount = () => {
-    console.log('onLoad')
-    var that = this
+    console.log("onLoad");
+    var that = this;
     //调用应用实例的方法获取全局数据
-    this.refresh()
-  }
+    this.refresh();
+  };
   switchTab = e => {
     this.setData({
       currentNavtab: e.currentTarget.dataset.idx
-    })
-  }
+    });
+  };
   bindItemTap = () => {
     Taro.navigateTo({
-      url: '../answer/answer'
-    })
-  }
+      url: "../answer/answer"
+    });
+  };
   bindQueTap = () => {
     Taro.navigateTo({
-      url: '../question/question'
-    })
-  }
+      url: "../question/question"
+    });
+  };
   upper = () => {
-    Taro.showNavigationBarLoading()
-    this.refresh()
-    console.log('upper')
+    Taro.showNavigationBarLoading();
+    this.refresh();
+    console.log("upper");
     setTimeout(function() {
-      Taro.hideNavigationBarLoading()
-      Taro.stopPullDownRefresh()
-    }, 2000)
-  }
+      Taro.hideNavigationBarLoading();
+      Taro.stopPullDownRefresh();
+    }, 2000);
+  };
   lower = e => {
-    Taro.showNavigationBarLoading()
-    var that = this
+    Taro.showNavigationBarLoading();
+    var that = this;
     setTimeout(function() {
-      Taro.hideNavigationBarLoading()
-      that.nextLoad()
-    }, 1000)
-    console.log('lower')
-  }
+      Taro.hideNavigationBarLoading();
+      that.nextLoad();
+    }, 1000);
+    console.log("lower");
+  };
   refresh0 = () => {
-    var index_api = ''
+    var index_api = "";
     util.getData(index_api).then(function(data) {
       //this.setData({
       //
       //});
-      console.log(data)
-    })
-  }
+      console.log(data);
+    });
+  };
   refresh = () => {
-    var feed = util.getDiscovery()
-    console.log('loaddata')
-    var feed_data = feed.data
+    var feed = util.getDiscovery();
+    console.log("loaddata");
+    var feed_data = feed.data;
     this.setData({
       feed: feed_data,
       feed_length: feed_data.length
-    })
-  }
+    });
+  };
   nextLoad = () => {
-    var next = util.discoveryNext()
-    console.log('continueload')
-    var next_data = next.data
+    var next = util.discoveryNext();
+    console.log("continueload");
+    var next_data = next.data;
     this.setData({
       feed: this.data.feed.concat(next_data),
       feed_length: this.data.feed_length + next_data.length
-    })
-  }
+    });
+  };
   config = {
-    navigationBarTitleText: ''
-  }
+    navigationBarTitleText: ""
+  };
 
   render() {
     const {
@@ -114,7 +115,7 @@ class _C extends Taro.Component {
       feed: feed,
       question_id: question_id,
       answer_id: answer_id
-    } = this.state
+    } = this.state;
     return (
       <Block>
         <View className="top-tab flex-wrp flex-tab">
@@ -122,14 +123,14 @@ class _C extends Taro.Component {
             return (
               <View
                 className={
-                  'toptab flex-item ' + (currentNavtab == idx ? 'active' : '')
+                  "toptab flex-item " + (currentNavtab == idx ? "active" : "")
                 }
                 data-idx={idx}
                 onClick={this.switchTab}
               >
                 {itemName}
               </View>
-            )
+            );
           })}
         </View>
         <ScrollView
@@ -140,7 +141,7 @@ class _C extends Taro.Component {
           scrollIntoView={toView}
           scrollTop={scrollTop}
         >
-          <View className="ctnt0" hidden={currentNavtab == 0 ? '' : true}>
+          <View className="ctnt0" hidden={currentNavtab == 0 ? "" : true}>
             <Swiper
               className="activity"
               indicatorDots={indicatorDots}
@@ -160,7 +161,7 @@ class _C extends Taro.Component {
                       />
                     </SwiperItem>
                   </Block>
-                )
+                );
               })}
             </Swiper>
             {feed.map((item, idx) => {
@@ -196,10 +197,10 @@ class _C extends Taro.Component {
                           onClick={this.bindItemTap}
                         >
                           <View className="like dot">
-                            <A>{item.good_num + ' 赞同'}</A>
+                            <A>{item.good_num + " 赞同"}</A>
                           </View>
                           <View className="comments dot">
-                            <A>{item.comment_num + ' 评论'}</A>
+                            <A>{item.comment_num + " 评论"}</A>
                           </View>
                           <View className="follow-it">
                             <A>关注问题</A>
@@ -209,31 +210,43 @@ class _C extends Taro.Component {
                     </View>
                   </View>
                 </Block>
-              )
+              );
             })}
           </View>
           <View
             className="ctnt1 placehold"
-            hidden={currentNavtab == 1 ? '' : true}
+            hidden={currentNavtab == 1 ? "" : true}
           >
             <Text>圆桌</Text>
           </View>
           <View
             className="ctnt2 placehold"
-            hidden={currentNavtab == 2 ? '' : true}
+            hidden={currentNavtab == 2 ? "" : true}
           >
             <Text>热门</Text>
           </View>
           <View
             className="ctnt3 placehold"
-            hidden={currentNavtab == 3 ? '' : true}
+            hidden={currentNavtab == 3 ? "" : true}
           >
             <Text>收藏</Text>
           </View>
         </ScrollView>
       </Block>
-    )
+    );
+  }
+
+  componentDidMount() {
+    super.componentDidMount && super.componentDidMount();
+  }
+
+  componentDidShow() {
+    super.componentDidShow && super.componentDidShow();
+  }
+
+  componentDidHide() {
+    super.componentDidHide && super.componentDidHide();
   }
 }
 
-export default _C
+export default Discovery;

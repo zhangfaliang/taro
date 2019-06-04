@@ -1,113 +1,121 @@
-import { Block, ScrollView, View, Image, Input, Text } from '@tarojs/components'
-import Taro from '@tarojs/taro'
-import withWeapp from '@tarojs/with-weapp'
-import './index.scss'
+import Nerv from "nervjs";
+import {
+  Block,
+  ScrollView,
+  View,
+  Image,
+  Input,
+  Text
+} from "@tarojs/components";
+import Taro from "@tarojs/taro-h5";
+import withWeapp from "@tarojs/with-weapp";
+import "./index.scss";
 //index.js
 
-var util = require('../../utils/util.js')
-var app = Taro.getApp()
+var util = require("../../utils/util.js");
+var app = Taro.getApp();
 
-@withWeapp('Page')
+@withWeapp("Page")
 class _C extends Taro.Component {
   state = {
     feed: [],
     feed_length: 0
-  }
+  };
   bindItemTap = () => {
     Taro.navigateTo({
-      url: '../answer/answer'
-    })
-  }
+      url: "../answer/answer"
+    });
+  };
   bindQueTap = () => {
     Taro.navigateTo({
-      url: '../question/question'
-    })
-  }
+      url: "../question/question"
+    });
+  };
   componentWillMount = () => {
-    console.log('onLoad')
-    var that = this
+    console.log("onLoad");
+    var that = this;
     //调用应用实例的方法获取全局数据
-    this.getData()
-  }
+    this.getData();
+  };
   upper = () => {
-    Taro.showNavigationBarLoading()
-    this.refresh()
-    console.log('upper')
+    Taro.showNavigationBarLoading();
+    this.refresh();
+    console.log("upper");
     setTimeout(function() {
-      Taro.hideNavigationBarLoading()
-      Taro.stopPullDownRefresh()
-    }, 2000)
-  }
+      Taro.hideNavigationBarLoading();
+      Taro.stopPullDownRefresh();
+    }, 2000);
+  };
   lower = e => {
-    Taro.showNavigationBarLoading()
-    var that = this
+    Taro.showNavigationBarLoading();
+    var that = this;
     setTimeout(function() {
-      Taro.hideNavigationBarLoading()
-      that.nextLoad()
-    }, 1000)
-    console.log('lower')
-  }
+      Taro.hideNavigationBarLoading();
+      that.nextLoad();
+    }, 1000);
+    console.log("lower");
+  };
   refresh0 = () => {
-    var index_api = ''
+    var index_api = "";
     util.getData(index_api).then(function(data) {
       //this.setData({
       //
       //});
-      console.log(data)
-    })
-  }
+      console.log(data);
+    });
+  };
   getData = () => {
-    var feed = util.getData2()
-    console.log('loaddata')
-    var feed_data = feed.data
+    var feed = util.getData2();
+    console.log("loaddata");
+    var feed_data = feed.data;
     this.setData({
       feed: feed_data,
       feed_length: feed_data.length
-    })
-  }
+    });
+  };
   refresh = () => {
     Taro.showToast({
-      title: '刷新中',
-      icon: 'loading',
+      title: "刷新中",
+      icon: "loading",
       duration: 3000
-    })
-    var feed = util.getData2()
-    console.log('loaddata')
-    var feed_data = feed.data
+    });
+    var feed = util.getData2();
+    console.log("loaddata");
+    var feed_data = feed.data;
     this.setData({
       feed: feed_data,
       feed_length: feed_data.length
-    })
+    });
     setTimeout(function() {
       Taro.showToast({
-        title: '刷新成功',
-        icon: 'success',
+        title: "刷新成功",
+        icon: "success",
         duration: 2000
-      })
-    }, 3000)
-  }
+      });
+    }, 3000);
+  };
   nextLoad = () => {
     Taro.showToast({
-      title: '加载中',
-      icon: 'loading',
+      title: "加载中",
+      icon: "loading",
       duration: 4000
-    })
-    var next = util.getNext()
-    console.log('continueload')
-    var next_data = next.data
+    });
+    var next = util.getNext();
+    console.log("continueload");
+    var next_data = next.data;
     this.setData({
       feed: this.data.feed.concat(next_data),
       feed_length: this.data.feed_length + next_data.length
-    })
+    });
     setTimeout(function() {
       Taro.showToast({
-        title: '加载成功',
-        icon: 'success',
+        title: "加载成功",
+        icon: "success",
         duration: 2000
-      })
-    }, 3000)
-  }
-  config = {}
+      });
+    }, 3000);
+  };
+  config = {};
 
   render() {
     const {
@@ -116,7 +124,7 @@ class _C extends Taro.Component {
       feed: feed,
       question_id: question_id,
       answer_id: answer_id
-    } = this.state
+    } = this.state;
     return (
       <ScrollView
         scrollY="true"
@@ -130,14 +138,14 @@ class _C extends Taro.Component {
       >
         <View className="search flex-wrp">
           <View className="search-left flex-item">
-            <Image src={require('../../images/search.png')} />
+            <Image src={require("../../images/search.png")} />
             <Input
               placeholder="搜索话题, 问题或人"
               placeholderClass="search-placeholder"
             />
           </View>
           <View className="search-right flex-item" onClick={this.upper}>
-            <Image src={require('../../images/lighting.png')} />
+            <Image src={require("../../images/lighting.png")} />
           </View>
         </View>
         {feed.map((item, idx) => {
@@ -154,7 +162,7 @@ class _C extends Taro.Component {
                   <Image
                     className="item-more"
                     mode="aspectFit"
-                    src={require('../../images/more.png')}
+                    src={require("../../images/more.png")}
                   />
                 </View>
                 <View className="feed-content">
@@ -175,10 +183,10 @@ class _C extends Taro.Component {
                     </View>
                     <View className="answer-actions" onClick={this.bindItemTap}>
                       <View className="like dot">
-                        <A>{item.good_num + ' 赞同'}</A>
+                        <A>{item.good_num + " 赞同"}</A>
                       </View>
                       <View className="comments dot">
-                        <A>{item.comment_num + ' 评论'}</A>
+                        <A>{item.comment_num + " 评论"}</A>
                       </View>
                       <View className="follow-it">
                         <A>关注问题</A>
@@ -188,11 +196,23 @@ class _C extends Taro.Component {
                 </View>
               </View>
             </Block>
-          )
+          );
         })}
       </ScrollView>
-    )
+    );
+  }
+
+  componentDidMount() {
+    super.componentDidMount && super.componentDidMount();
+  }
+
+  componentDidShow() {
+    super.componentDidShow && super.componentDidShow();
+  }
+
+  componentDidHide() {
+    super.componentDidHide && super.componentDidHide();
   }
 }
 
-export default _C
+export default _C;

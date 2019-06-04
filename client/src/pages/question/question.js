@@ -1,40 +1,41 @@
-import { Block, View, Text, Image } from '@tarojs/components'
-import Taro from '@tarojs/taro'
-import withWeapp from '@tarojs/with-weapp'
-import './question.scss'
+import Nerv from "nervjs";
+import { View, Text, Image } from "@tarojs/components";
+import Taro from "@tarojs/taro-h5";
+import withWeapp from "@tarojs/with-weapp";
+import "./question.scss";
 //answer.js
-var util = require('../../utils/util.js')
+var util = require("../../utils/util.js");
 
-var app = Taro.getApp()
+var app = Taro.getApp();
 
-@withWeapp('Page')
-class _C extends Taro.Component {
+@withWeapp("Page")
+class Question extends Taro.Component {
   state = {
-    motto: '知乎--微信小程序版',
+    motto: "知乎--微信小程序版",
     userInfo: {}
-  }
+  };
   bindItemTap = () => {
     Taro.navigateTo({
-      url: '../answer/answer'
-    })
-  }
+      url: "../answer/answer"
+    });
+  };
   componentWillMount = () => {
-    console.log('onLoad')
-    var that = this
+    console.log("onLoad");
+    var that = this;
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function(userInfo) {
       //更新数据
       that.setData({
         userInfo: userInfo
-      })
-    })
-  }
+      });
+    });
+  };
   tapName = event => {
-    console.log(event)
-  }
+    console.log(event);
+  };
   config = {
-    navigationBarTitleText: '问题'
-  }
+    navigationBarTitleText: "问题"
+  };
 
   render() {
     return (
@@ -57,11 +58,11 @@ class _C extends Taro.Component {
             <View className="que-follow">
               <View className="left">
                 <View className="watch">
-                  <Image src={require('../../images/eye.png')} />
+                  <Image src={require("../../images/eye.png")} />
                   <Text>3316</Text>
                 </View>
                 <View className="comment">
-                  <Image src={require('../../images/comment2.png')} />
+                  <Image src={require("../../images/comment2.png")} />
                   <Text>27</Text>
                 </View>
               </View>
@@ -70,11 +71,11 @@ class _C extends Taro.Component {
           </View>
           <View className="que-operate flex-wrp">
             <View className="invite flex-item">
-              <Image src={require('../../images/invite.png')} />
+              <Image src={require("../../images/invite.png")} />
               <Text>邀请回答</Text>
             </View>
             <View className="write flex-item">
-              <Image src={require('../../images/write.png')} />
+              <Image src={require("../../images/write.png")} />
               <Text>写回答</Text>
             </View>
           </View>
@@ -84,7 +85,7 @@ class _C extends Taro.Component {
             <View className="feed-source">
               <A className bindTap>
                 <View className="avatar">
-                  <Image src={require('../../images/icon1.jpeg')} />
+                  <Image src={require("../../images/icon1.jpeg")} />
                 </View>
                 <Text>Rebecca</Text>
               </A>
@@ -116,7 +117,7 @@ class _C extends Taro.Component {
             <View className="feed-source">
               <A className bindTap>
                 <View className="avatar">
-                  <Image src={require('../../images/icon1.jpeg')} />
+                  <Image src={require("../../images/icon1.jpeg")} />
                 </View>
                 <Text>Rebecca</Text>
               </A>
@@ -148,7 +149,7 @@ class _C extends Taro.Component {
             <View className="feed-source">
               <A className bindTap>
                 <View className="avatar">
-                  <Image src={require('../../images/icon1.jpeg')} />
+                  <Image src={require("../../images/icon1.jpeg")} />
                 </View>
                 <Text>Rebecca</Text>
               </A>
@@ -180,7 +181,7 @@ class _C extends Taro.Component {
             <View className="feed-source">
               <A className bindTap>
                 <View className="avatar">
-                  <Image src={require('../../images/icon1.jpeg')} />
+                  <Image src={require("../../images/icon1.jpeg")} />
                 </View>
                 <Text>Rebecca</Text>
               </A>
@@ -212,7 +213,7 @@ class _C extends Taro.Component {
             <View className="feed-source">
               <A className bindTap>
                 <View className="avatar">
-                  <Image src={require('../../images/icon1.jpeg')} />
+                  <Image src={require("../../images/icon1.jpeg")} />
                 </View>
                 <Text>Rebecca</Text>
               </A>
@@ -244,7 +245,7 @@ class _C extends Taro.Component {
             <View className="feed-source">
               <A className bindTap>
                 <View className="avatar">
-                  <Image src={require('../../images/icon1.jpeg')} />
+                  <Image src={require("../../images/icon1.jpeg")} />
                 </View>
                 <Text>Rebecca</Text>
               </A>
@@ -274,8 +275,20 @@ class _C extends Taro.Component {
           </View>
         </View>
       </View>
-    )
+    );
+  }
+
+  componentDidMount() {
+    super.componentDidMount && super.componentDidMount();
+  }
+
+  componentDidShow() {
+    super.componentDidShow && super.componentDidShow();
+  }
+
+  componentDidHide() {
+    super.componentDidHide && super.componentDidHide();
   }
 }
 
-export default _C
+export default Question;
