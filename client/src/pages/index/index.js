@@ -1,4 +1,5 @@
 import Nerv from "nervjs";
+import { connect } from '@tarojs/redux'
 import {
   Block,
   ScrollView,
@@ -11,11 +12,23 @@ import Taro from "@tarojs/taro";
 import withWeapp from "@tarojs/with-weapp";
 import "./index.scss";
 //index.js
-import { getIndex } from "../services/index";
 var util = require("../../utils/util.js");
 var app = Taro.getApp();
-import { DB } from "../../app";
+import { add, minus, asyncAdd } from '../../actions/counter'
 
+@connect(({ counter }) => ({
+  counter
+}), (dispatch) => ({
+  add () {
+    dispatch(add())
+  },
+  dec () {
+    dispatch(minus())
+  },
+  asyncAdd () {
+    dispatch(asyncAdd())
+  }
+}))
 @withWeapp("Page")
 class _C extends Taro.Component {
   state = {
