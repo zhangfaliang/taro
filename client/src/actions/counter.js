@@ -15,12 +15,5 @@ import {
     }
   }
   
-  // 异步的 action
-  export function asyncAdd () {
-    return dispatch => {
-      setTimeout(() => {
-        dispatch(add())
-      }, 2000)
-    }
-  }
+
   

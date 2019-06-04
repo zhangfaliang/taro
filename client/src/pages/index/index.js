@@ -14,22 +14,15 @@ import "./index.scss";
 //index.js
 var util = require("../../utils/util.js");
 var app = Taro.getApp();
-import { add, minus, asyncAdd } from '../../actions/counter'
+import { asyncPageIndexGetData } from '../../actions/index'
 
-@connect(({ counter }) => ({
-  counter
-}), (dispatch) => ({
-  add () {
-    dispatch(add())
-  },
-  dec () {
-    dispatch(minus())
-  },
-  asyncAdd () {
-    dispatch(asyncAdd())
-  }
-}))
-@withWeapp("Page")
+
+ @withWeapp("Page")
+//  @connect(({ pageIndex }) => ({
+//   pageIndex
+// }),{}
+
+// )
 class _C extends Taro.Component {
   state = {
     feed: [],
@@ -49,6 +42,7 @@ class _C extends Taro.Component {
     console.log("onLoad");
     var that = this;
     //调用应用实例的方法获取全局数据
+    // this.props.asyncPageIndexGetData()
     this.getData();
   };
   upper = () => {
@@ -130,7 +124,7 @@ class _C extends Taro.Component {
     }, 3000);
   };
   config = {};
-
+ 
   render() {
     const {
       toView: toView,
@@ -139,6 +133,8 @@ class _C extends Taro.Component {
       question_id: question_id,
       answer_id: answer_id
     } = this.state;
+
+    console.log(this.props.pageIndex,'pageIndex')
     return (
       <ScrollView
         scrollY="true"
