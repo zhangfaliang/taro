@@ -1,121 +1,198 @@
-import Taro, { Component } from '@tarojs/taro'
-import { View, Text } from '@tarojs/components'
+import { Block, ScrollView, View, Image, Input, Text } from '@tarojs/components'
+import Taro from '@tarojs/taro'
+import withWeapp from '@tarojs/with-weapp'
 import './index.scss'
+//index.js
 
-import Login from '../../components/login/index'
-import GetDB from '../../components/getDB';
-import RunCloud from '../../components/runCloud';
-import SetDB from '../../components/setDB';
+var util = require('../../utils/util.js')
+var app = Taro.getApp()
 
-export default class Index extends Component {
-
+@withWeapp('Page')
+class _C extends Taro.Component {
+  state = {
+    feed: [],
+    feed_length: 0
+  }
+  bindItemTap = () => {
+    Taro.navigateTo({
+      url: '../answer/answer'
+    })
+  }
+  bindQueTap = () => {
+    Taro.navigateTo({
+      url: '../question/question'
+    })
+  }
   componentWillMount = () => {
-    //调用API从本地缓存中获取数据
-    var logs = Taro.getStorageSync('logs') || []
-    logs.unshift(Date.now())
-    Taro.setStorageSync('logs', logs)
-  }
-  getUserInfo = cb => {
+    console.log('onLoad')
     var that = this
-    if (this.globalData.userInfo) {
-      typeof cb == 'function' && cb(this.globalData.userInfo)
-    } else {
-      //调用登录接口
-      Taro.login({
-        success: function() {
-          Taro.getUserInfo({
-            success: function(res) {
-              that.globalData.userInfo = res.userInfo
-              typeof cb == 'function' && cb(that.globalData.userInfo)
-            }
-          })
-        }
+    //调用应用实例的方法获取全局数据
+    this.getData()
+  }
+  upper = () => {
+    Taro.showNavigationBarLoading()
+    this.refresh()
+    console.log('upper')
+    setTimeout(function() {
+      Taro.hideNavigationBarLoading()
+      Taro.stopPullDownRefresh()
+    }, 2000)
+  }
+  lower = e => {
+    Taro.showNavigationBarLoading()
+    var that = this
+    setTimeout(function() {
+      Taro.hideNavigationBarLoading()
+      that.nextLoad()
+    }, 1000)
+    console.log('lower')
+  }
+  refresh0 = () => {
+    var index_api = ''
+    util.getData(index_api).then(function(data) {
+      //this.setData({
+      //
+      //});
+      console.log(data)
+    })
+  }
+  getData = () => {
+    var feed = util.getData2()
+    console.log('loaddata')
+    var feed_data = feed.data
+    this.setData({
+      feed: feed_data,
+      feed_length: feed_data.length
+    })
+  }
+  refresh = () => {
+    Taro.showToast({
+      title: '刷新中',
+      icon: 'loading',
+      duration: 3000
+    })
+    var feed = util.getData2()
+    console.log('loaddata')
+    var feed_data = feed.data
+    this.setData({
+      feed: feed_data,
+      feed_length: feed_data.length
+    })
+    setTimeout(function() {
+      Taro.showToast({
+        title: '刷新成功',
+        icon: 'success',
+        duration: 2000
       })
-    }
+    }, 3000)
   }
-  globalData = {
-    userInfo: null
+  nextLoad = () => {
+    Taro.showToast({
+      title: '加载中',
+      icon: 'loading',
+      duration: 4000
+    })
+    var next = util.getNext()
+    console.log('continueload')
+    var next_data = next.data
+    this.setData({
+      feed: this.data.feed.concat(next_data),
+      feed_length: this.data.feed_length + next_data.length
+    })
+    setTimeout(function() {
+      Taro.showToast({
+        title: '加载成功',
+        icon: 'success',
+        duration: 2000
+      })
+    }, 3000)
   }
-  config = {
-    pages: [
-      'pages/index/index',
-      'pages/discovery/discovery',
-      'pages/notify/notify',
-      'pages/chat/chat',
-      'pages/more/more',
-      'pages/answer/answer',
-      'pages/question/question'
-    ],
-    window: {
-      backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#0068C4',
-      navigationBarTitleText: '知乎',
-      navigationBarTextStyle: 'white',
-      enablePullDownRefresh: true
-    },
-    tabBar: {
-      color: '#626567',
-      selectedColor: '#2A8CE5',
-      backgroundColor: '#FBFBFB',
-      borderStyle: 'white',
-      list: [
-        {
-          pagePath: 'pages/index/index',
-          text: '',
-          iconPath: 'images/index.png',
-          selectedIconPath: 'images/index_focus.png'
-        },
-        {
-          pagePath: 'pages/discovery/discovery',
-          text: '',
-          iconPath: 'images/discovery.png',
-          selectedIconPath: 'images/discovery_focus.png'
-        },
-        {
-          pagePath: 'pages/notify/notify',
-          text: '',
-          iconPath: 'images/ring.png',
-          selectedIconPath: 'images/ring_focus.png'
-        },
-        {
-          pagePath: 'pages/chat/chat',
-          text: '',
-          iconPath: 'images/chat.png',
-          selectedIconPath: 'images/chat_focus.png'
-        },
-        {
-          pagePath: 'pages/more/more',
-          text: '',
-          iconPath: 'images/burger.png',
-          selectedIconPath: 'images/burger_focus.png'
-        }
-      ]
-    },
-    networkTimeout: {
-      request: 10000,
-      downloadFile: 10000
-    },
-    debug: true,
-    sitemapLocation: 'sitemap.json'
-  }
+  config = {}
 
-  componentWillMount() {
-    this.$app.globalData = this.globalData
-  }
-  render () {
+  render() {
+    const {
+      toView: toView,
+      scrollTop: scrollTop,
+      feed: feed,
+      question_id: question_id,
+      answer_id: answer_id
+    } = this.state
     return (
-      <View className='index'>
-        <Login/>
-        <GetDB/>
-        <SetDB/>
-        <RunCloud/>
-      </View>
+      <ScrollView
+        scrollY="true"
+        className="container"
+        onScrollToUpper={this.upper}
+        upperThreshold="10"
+        lowerThreshold="5"
+        onScrollToLower={this.lower}
+        scrollIntoView={toView}
+        scrollTop={scrollTop}
+      >
+        <View className="search flex-wrp">
+          <View className="search-left flex-item">
+            <Image src={require('../../images/search.png')} />
+            <Input
+              placeholder="搜索话题, 问题或人"
+              placeholderClass="search-placeholder"
+            />
+          </View>
+          <View className="search-right flex-item" onClick={this.upper}>
+            <Image src={require('../../images/lighting.png')} />
+          </View>
+        </View>
+        {feed.map((item, idx) => {
+          return (
+            <Block data-idx={idx}>
+              <View className="feed-item">
+                <View className="feed-source">
+                  <A className>
+                    <View className="avatar">
+                      <Image src={item.feed_source_img} />
+                    </View>
+                    <Text>{item.feed_source_name + item.feed_source_txt}</Text>
+                  </A>
+                  <Image
+                    className="item-more"
+                    mode="aspectFit"
+                    src={require('../../images/more.png')}
+                  />
+                </View>
+                <View className="feed-content">
+                  <View
+                    className="question"
+                    qid={question_id}
+                    onClick={this.bindQueTap}
+                  >
+                    <A className="question-link">
+                      <Text>{item.question}</Text>
+                    </A>
+                  </View>
+                  <View className="answer-body">
+                    <View onClick={this.bindItemTap}>
+                      <Text className="answer-txt" aid={answer_id}>
+                        {item.answer_ctnt}
+                      </Text>
+                    </View>
+                    <View className="answer-actions" onClick={this.bindItemTap}>
+                      <View className="like dot">
+                        <A>{item.good_num + ' 赞同'}</A>
+                      </View>
+                      <View className="comments dot">
+                        <A>{item.comment_num + ' 评论'}</A>
+                      </View>
+                      <View className="follow-it">
+                        <A>关注问题</A>
+                      </View>
+                    </View>
+                  </View>
+                </View>
+              </View>
+            </Block>
+          )
+        })}
+      </ScrollView>
     )
   }
 }
 
-
-
-
-
-
+export default _C
