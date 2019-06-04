@@ -3,7 +3,7 @@
 	"cloudfunctionRoot": "cloud/functions/",
 	"projectname": "myApp",
 	"description": "搞笑",
-	"appid": "touristappid",
+	"appid": "wx19bf09a601016cfe",
 	"setting": {
 		"urlCheck": true,
 		"es6": false,
@@ -13,5 +13,6 @@
 	"compileType": "miniprogram",
 	"simulatorType": "wechat",
 	"simulatorPluginLibVersion": {},
+	"cloudfunctionTemplateRoot": "cloudfunctionTemplate",
 	"condition": {}
 }

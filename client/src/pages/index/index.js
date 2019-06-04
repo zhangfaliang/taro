@@ -3,28 +3,119 @@ import { View, Text } from '@tarojs/components'
 import './index.scss'
 
 import Login from '../../components/login/index'
+import GetDB from '../../components/getDB';
+import RunCloud from '../../components/runCloud';
+import SetDB from '../../components/setDB';
 
 export default class Index extends Component {
 
+  componentWillMount = () => {
+    //调用API从本地缓存中获取数据
+    var logs = Taro.getStorageSync('logs') || []
+    logs.unshift(Date.now())
+    Taro.setStorageSync('logs', logs)
+  }
+  getUserInfo = cb => {
+    var that = this
+    if (this.globalData.userInfo) {
+      typeof cb == 'function' && cb(this.globalData.userInfo)
+    } else {
+      //调用登录接口
+      Taro.login({
+        success: function() {
+          Taro.getUserInfo({
+            success: function(res) {
+              that.globalData.userInfo = res.userInfo
+              typeof cb == 'function' && cb(that.globalData.userInfo)
+            }
+          })
+        }
+      })
+    }
+  }
+  globalData = {
+    userInfo: null
+  }
   config = {
-    navigationBarTitleText: '首页'
+    pages: [
+      'pages/index/index',
+      'pages/discovery/discovery',
+      'pages/notify/notify',
+      'pages/chat/chat',
+      'pages/more/more',
+      'pages/answer/answer',
+      'pages/question/question'
+    ],
+    window: {
+      backgroundTextStyle: 'light',
+      navigationBarBackgroundColor: '#0068C4',
+      navigationBarTitleText: '知乎',
+      navigationBarTextStyle: 'white',
+      enablePullDownRefresh: true
+    },
+    tabBar: {
+      color: '#626567',
+      selectedColor: '#2A8CE5',
+      backgroundColor: '#FBFBFB',
+      borderStyle: 'white',
+      list: [
+        {
+          pagePath: 'pages/index/index',
+          text: '',
+          iconPath: 'images/index.png',
+          selectedIconPath: 'images/index_focus.png'
+        },
+        {
+          pagePath: 'pages/discovery/discovery',
+          text: '',
+          iconPath: 'images/discovery.png',
+          selectedIconPath: 'images/discovery_focus.png'
+        },
+        {
+          pagePath: 'pages/notify/notify',
+          text: '',
+          iconPath: 'images/ring.png',
+          selectedIconPath: 'images/ring_focus.png'
+        },
+        {
+          pagePath: 'pages/chat/chat',
+          text: '',
+          iconPath: 'images/chat.png',
+          selectedIconPath: 'images/chat_focus.png'
+        },
+        {
+          pagePath: 'pages/more/more',
+          text: '',
+          iconPath: 'images/burger.png',
+          selectedIconPath: 'images/burger_focus.png'
+        }
+      ]
+    },
+    networkTimeout: {
+      request: 10000,
+      downloadFile: 10000
+    },
+    debug: true,
+    sitemapLocation: 'sitemap.json'
   }
 
-  componentWillMount () { }
-
-  componentDidMount () { }
-
-  componentWillUnmount () { }
-
-  componentDidShow () { }
-
-  componentDidHide () { }
-
+  componentWillMount() {
+    this.$app.globalData = this.globalData
+  }
   render () {
     return (
       <View className='index'>
         <Login/>
+        <GetDB/>
+        <SetDB/>
+        <RunCloud/>
       </View>
     )
   }
 }
+
+
+
+
+
+

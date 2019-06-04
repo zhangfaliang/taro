@@ -4,13 +4,13 @@ const cloud = require('wx-server-sdk')
 cloud.init({env:'chiji-test',traceUser: true})
 
 exports.main = (event, context) => {
-  let { userInfo, a, b} = event
-  let { OPENID, APPID } = cloud.getWXContext() // 这里获取到的 openId 和 appId 是可信的
-  let sum = a + b
+  // 这里获取到的 openId、 appId 和 unionId 是可信的，注意 unionId 仅在满足 unionId 获取条件时返回
+  let { OPENID, APPID, UNIONID,a,d } = cloud.getWXContext()
 
   return {
     OPENID,
     APPID,
-    sum
+    UNIONID,
+    sum:a+d
   }
 }
