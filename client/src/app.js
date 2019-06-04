@@ -1,48 +1,107 @@
-import Taro, { Component } from '@tarojs/taro'
-import Index from './pages/index'
-
+import { Block } from '@tarojs/components'
+import Taro from '@tarojs/taro'
+import withWeapp from '@tarojs/with-weapp'
 import './app.scss'
 
-// 如果需要在 h5 环境中开启 React Devtools
-// 取消以下注释：
-// if (process.env.NODE_ENV !== 'production' && process.env.TARO_ENV === 'h5')  {
-//   require('nerv-devtools')
-// }
-
-class App extends Component {
-
+class App extends Taro.Component {
+  componentWillMount = () => {
+    //调用API从本地缓存中获取数据
+    var logs = Taro.getStorageSync('logs') || []
+    logs.unshift(Date.now())
+    Taro.setStorageSync('logs', logs)
+  }
+  getUserInfo = cb => {
+    var that = this
+    if (this.globalData.userInfo) {
+      typeof cb == 'function' && cb(this.globalData.userInfo)
+    } else {
+      //调用登录接口
+      Taro.login({
+        success: function() {
+          Taro.getUserInfo({
+            success: function(res) {
+              that.globalData.userInfo = res.userInfo
+              typeof cb == 'function' && cb(that.globalData.userInfo)
+            }
+          })
+        }
+      })
+    }
+  }
+  globalData = {
+    userInfo: null
+  }
   config = {
     pages: [
-      'pages/index/index'
+      'pages/index/index',
+      'pages/discovery/discovery',
+      'pages/notify/notify',
+      'pages/chat/chat',
+      'pages/more/more',
+      'pages/answer/answer',
+      'pages/question/question'
     ],
     window: {
       backgroundTextStyle: 'light',
-      navigationBarBackgroundColor: '#fff',
-      navigationBarTitleText: 'WeChat',
-      navigationBarTextStyle: 'black'
+      navigationBarBackgroundColor: '#0068C4',
+      navigationBarTitleText: '知乎',
+      navigationBarTextStyle: 'white',
+      enablePullDownRefresh: true
     },
-    cloud: true
+    tabBar: {
+      color: '#626567',
+      selectedColor: '#2A8CE5',
+      backgroundColor: '#FBFBFB',
+      borderStyle: 'white',
+      list: [
+        {
+          pagePath: 'pages/index/index',
+          text: '',
+          iconPath: 'images/index.png',
+          selectedIconPath: 'images/index_focus.png'
+        },
+        {
+          pagePath: 'pages/discovery/discovery',
+          text: '',
+          iconPath: 'images/discovery.png',
+          selectedIconPath: 'images/discovery_focus.png'
+        },
+        {
+          pagePath: 'pages/notify/notify',
+          text: '',
+          iconPath: 'images/ring.png',
+          selectedIconPath: 'images/ring_focus.png'
+        },
+        {
+          pagePath: 'pages/chat/chat',
+          text: '',
+          iconPath: 'images/chat.png',
+          selectedIconPath: 'images/chat_focus.png'
+        },
+        {
+          pagePath: 'pages/more/more',
+          text: '',
+          iconPath: 'images/burger.png',
+          selectedIconPath: 'images/burger_focus.png'
+        }
+      ]
+    },
+    networkTimeout: {
+      request: 10000,
+      downloadFile: 10000
+    },
+    debug: true,
+    sitemapLocation: 'sitemap.json'
   }
 
-  componentDidMount () {
-    if (process.env.TARO_ENV === 'weapp') {
-      Taro.cloud.init()
-    }
+  componentWillMount() {
+    this.$app.globalData = this.globalData
   }
 
-  componentDidShow () {}
-
-  componentDidHide () {}
-
-  componentDidCatchError () {}
-
-  // 在 App 类中的 render() 函数没有实际作用
-  // 请勿修改此函数
-  render () {
-    return (
-      <Index />
-    )
+  render() {
+    return null
   }
-}
+} //app.js
 
+export default App
 Taro.render(<App />, document.getElementById('app'))

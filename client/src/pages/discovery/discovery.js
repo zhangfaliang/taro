@@ -8,7 +8,7 @@ import {
   Image,
   Text
 } from "@tarojs/components";
-import Taro from "@tarojs/taro-h5";
+import Taro from "@tarojs/taro";
 import withWeapp from "@tarojs/with-weapp";
 import "./discovery.scss";
 //discovery.js
