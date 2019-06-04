@@ -2,7 +2,6 @@ import { Block } from '@tarojs/components'
 import Taro from '@tarojs/taro'
 import withWeapp from '@tarojs/with-weapp'
 import './app.scss'
-
 class App extends Taro.Component {
   componentWillMount = () => {
     //调用API从本地缓存中获取数据

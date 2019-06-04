@@ -10,11 +10,11 @@ import {
 import Taro from "@tarojs/taro";
 import withWeapp from "@tarojs/with-weapp";
 import "./index.scss";
-//index.js
-import { getIndex } from "../services/index";
+
+import { getIndex } from '../services/index';
+
 var util = require("../../utils/util.js");
 var app = Taro.getApp();
-import { DB } from "../../app";
 
 @withWeapp("Page")
 class _C extends Taro.Component {
@@ -32,11 +32,11 @@ class _C extends Taro.Component {
       url: "../question/question"
     });
   };
-  componentWillMount = () => {
+  componentWillMount = async () => {
     console.log("onLoad");
     var that = this;
     //调用应用实例的方法获取全局数据
-    this.getData();
+     const data  = await getIndex();
   };
   upper = () => {
     Taro.showNavigationBarLoading();
