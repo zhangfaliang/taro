@@ -17,18 +17,25 @@ var util = require("../../utils/util.js");
 var app = Taro.getApp();
 import { getData } from '../../actions/index'
 import { makePageIndex,makeFeed } from '../../selects/pageIndex';
+import { makeCounter } from '../../selects//count';
+import { add, minus, asyncAdd } from '../../actions/counter'
 
- @withWeapp("Page")
+
  @connect(createStructuredSelector({
   pageIndex:makePageIndex,
-  feed:makeFeed
+  feed:makeFeed,
+  counter:makeCounter
  }),
 (dispatch) => ({
   asyncPageIndexGetData: ()=> {
     dispatch(getData())
-  }
+  },
+  add () {
+    dispatch(add())
+  },
 })
 )
+@withWeapp("Page")
 class _C extends Taro.Component {
   state = {
     feed: [],
@@ -152,6 +159,10 @@ class _C extends Taro.Component {
         scrollIntoView={toView}
         scrollTop={scrollTop}
       >
+       <View className='todo'>
+        <Button className='add_btn' onClick={this.props.add}>+</Button>
+        <View>{this.props.counter.num}</View>
+      </View>
         <View className="search flex-wrp">
           <View className="search-left flex-item">
             <Image src={require("../../images/search.png")} />
