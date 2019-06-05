@@ -4,6 +4,7 @@ import { PAGE_INDEX_GET,PAGE_INDEX_SET} from '../constants/index';
 // worker Saga : 将在 USER_FETCH_REQUESTED action 被 dispatch 时调用
 function* fetchData(action) {
    try {
+     debugger
       const data = yield call(getPageIndexDate);
       yield put({type: PAGE_INDEX_SET, data});
    } catch (e) {

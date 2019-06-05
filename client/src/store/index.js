@@ -1,15 +1,16 @@
-// src/store/index.js
-import { createStore, applyMiddleware } from 'redux'
-import thunkMiddleware from 'redux-thunk'
-import { createLogger } from 'redux-logger'
-import rootReducer from '../reducers'
+import { createStore, applyMiddleware } from "redux";
+import createSagaMiddleware from "redux-saga";
 
-const middlewares = [
-  thunkMiddleware,
-  createLogger()
-]
-
-export default function configStore () {
-  const store = createStore(rootReducer, applyMiddleware(...middlewares))
-  return store
+import reducer from "../reducers/index";
+import mySaga from "../sagas/pageIndex";
+const sagaMiddleware = createSagaMiddleware();
+let middlewares = [sagaMiddleware];
+export default function configStore() {
+  // mount it on the Store
+  const store = createStore(reducer, applyMiddleware(...middlewares));
+  // then run the saga
+  sagaMiddleware.run(mySaga);
+  return store;
 }
+
+// create the saga middleware

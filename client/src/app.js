@@ -1,16 +1,18 @@
-import { Block } from "@tarojs/components";
+import '@tarojs/async-await'
 import Taro from "@tarojs/taro";
-import withWeapp from "@tarojs/with-weapp";
-import "./app.scss";
 import { Provider } from "@tarojs/redux";
+import withWeapp from "@tarojs/with-weapp";
+import { Block } from "@tarojs/components";
+
+import "./app.scss";
 import { config } from "./routers/index";
-// import configStore from "./store/index";
+import configStore from "./store/index";
 import Index from "./pages/index";
 Taro.cloud.init({
   env: "chiji-test-3e054b"
 });
 export const testDB = Taro.cloud.database();
-// const store = configStore();
+const store = configStore();
 
 class App extends Taro.Component {
   componentWillMount = () => {

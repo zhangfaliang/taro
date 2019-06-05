@@ -14,15 +14,19 @@ import "./index.scss";
 //index.js
 var util = require("../../utils/util.js");
 var app = Taro.getApp();
-import { asyncPageIndexGetData } from '../../actions/index'
+import { getData } from '../../actions/index'
 
 
  @withWeapp("Page")
-//  @connect(({ pageIndex }) => ({
-//   pageIndex
-// }),{}
-
-// )
+ @connect(({ pageIndex }) => ({
+  pageIndex
+}),
+(dispatch) => ({
+  asyncPageIndexGetData: ()=> {
+    dispatch(getData())
+  }
+})
+)
 class _C extends Taro.Component {
   state = {
     feed: [],
@@ -42,7 +46,7 @@ class _C extends Taro.Component {
     console.log("onLoad");
     var that = this;
     //调用应用实例的方法获取全局数据
-    // this.props.asyncPageIndexGetData()
+    this.props.asyncPageIndexGetData()
     this.getData();
   };
   upper = () => {
