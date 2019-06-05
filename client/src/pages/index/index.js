@@ -1,5 +1,6 @@
 import Nerv from "nervjs";
 import { connect } from '@tarojs/redux'
+import { createStructuredSelector } from 'reselect';
 import {
   Block,
   ScrollView,
@@ -15,12 +16,13 @@ import "./index.scss";
 var util = require("../../utils/util.js");
 var app = Taro.getApp();
 import { getData } from '../../actions/index'
-
+import { makePageIndex,makeFeed } from '../../selects/pageIndex';
 
  @withWeapp("Page")
- @connect(({ pageIndex }) => ({
-  pageIndex
-}),
+ @connect(createStructuredSelector({
+  pageIndex:makePageIndex,
+  feed:makeFeed
+ }),
 (dispatch) => ({
   asyncPageIndexGetData: ()=> {
     dispatch(getData())
@@ -138,7 +140,7 @@ class _C extends Taro.Component {
       answer_id: answer_id
     } = this.state;
 
-    console.log(this.props.pageIndex,'pageIndex')
+    console.log(this.props)
     return (
       <ScrollView
         scrollY="true"

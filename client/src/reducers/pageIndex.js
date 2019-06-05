@@ -9,7 +9,7 @@ export default function counter (state = INITIAL_STATE, action) {
     case PAGE_INDEX_SET:
       return {
         ...state,
-        pageDate: action.data
+        pageDate:{...state.pageDate,...action.data} 
       }
     case PAGE_INDEX_GET:
       return {
