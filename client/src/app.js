@@ -3,7 +3,7 @@ import {Provider} from '@tarojs/redux';
 import configStore from './store';
 import Taro from "@tarojs/taro";
 import "./app.scss";
-import Index from "./pages/index";
+import Index from "./pages/copy/index";
 Taro.cloud.init({
   env: "chiji-test-3e054b"
 });
