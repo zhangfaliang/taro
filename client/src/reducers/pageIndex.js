@@ -4,12 +4,12 @@ const INITIAL_STATE = {
   pageDate: []
 }
 
-export default function counter (state = INITIAL_STATE, action) {
+export default function pageIndex (state = INITIAL_STATE, action) {
   switch (action.type) {
     case PAGE_INDEX_SET:
       return {
         ...state,
-        pageDate:[...state.pageDate,...action.data]
+        pageDate:[...action.data.data]
       }
     case PAGE_INDEX_GET:
       return {

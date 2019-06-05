@@ -14,11 +14,10 @@ import withWeapp from "@tarojs/with-weapp";
 import "./index.scss";
 //index.js
 var util = require("../../utils/util.js");
-var app = Taro.getApp();
 import { getData } from '../../actions/index'
 import { makePageIndex,makeFeed } from '../../selects/pageIndex';
 import { makeCounter } from '../../selects//count';
-import { add, minus, asyncAdd } from '../../actions/counter'
+import { add } from '../../actions/counter'
 
 
  @connect(createStructuredSelector({
@@ -139,6 +138,8 @@ class _C extends Taro.Component {
   config = {};
  
   render() {
+    console.log(this.props)
+
     const {
       toView: toView,
       scrollTop: scrollTop,
@@ -146,8 +147,6 @@ class _C extends Taro.Component {
       question_id: question_id,
       answer_id: answer_id
     } = this.state;
-
-    console.log(this.props)
     return (
       <ScrollView
         scrollY="true"

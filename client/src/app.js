@@ -1,8 +1,8 @@
-import '@tarojs/async-await'
+import '@tarojs/async-await'; 
+import {Provider} from '@tarojs/redux';
+import configStore from './store';
 import Taro from "@tarojs/taro";
-import { Provider } from "@tarojs/redux";
 import "./app.scss";
-import configStore from "./store/index";
 import Index from "./pages/index";
 Taro.cloud.init({
   env: "chiji-test-3e054b"
