@@ -1,14 +1,55 @@
-import { call, put, takeEvery, takeLatest } from 'redux-saga/effects'
-import { getPageIndexDate } from '../services/pageIndex';
-import { PAGE_INDEX_GET,PAGE_INDEX_SET} from '../constants/index';
+import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
+import Taro from "@tarojs/taro";
+
+import { getPageIndexDate } from "../services/pageIndex";
+import {
+  PAGE_INDEX_GET,
+  PAGE_INDEX_SET,
+  PAGE_INDEX_UPPER,
+  PAGE_INDEX_LOWER
+} from "../constants/index";
 // worker Saga : 将在 PAGE_INDEX_SET action 被 dispatch 时调用
 function* fetchData(action) {
-   try {
-      const data = yield call(getPageIndexDate);
-      yield put({type: PAGE_INDEX_SET, data});
-   } catch (e) {
-      yield put({type: PAGE_INDEX_SET, message: e.message});
-   }
+  try {
+    const data = yield call(getPageIndexDate);
+    yield put({ type: PAGE_INDEX_SET, data });
+  } catch (e) {
+    // yield put({ type: PAGE_INDEX_SET, message: e.message });
+  }
+}
+
+// worker Saga : 将在 PAGE_INDEX_SET action 被 dispatch 时调用
+function* fetchUpdate(action) {
+  try {
+    Taro.showNavigationBarLoading();
+    const data = yield call(getPageIndexDate);
+    Taro.hideNavigationBarLoading();
+    Taro.stopPullDownRefresh();
+    yield put({ type: PAGE_INDEX_SET, data });
+  } catch (e) {
+    // yield put({ type: PAGE_INDEX_SET, message: e.message });
+  }
+}
+// worker Saga : 将在 PAGE_INDEX_SET action 被 dispatch 时调用
+function* fetchLower(action) {
+  try {
+    Taro.showNavigationBarLoading();
+    Taro.showToast({
+      title: "加载中",
+      icon: "loading",
+      duration: 1000
+    });
+    const data = yield call(getPageIndexDate);
+    console.log("continueload");
+    Taro.showToast({
+      title: "加载成功",
+      icon: "success",
+      duration: 1000
+    });
+    yield put({ type: PAGE_INDEX_SET, data });
+  } catch (e) {
+    // yield put({ type: PAGE_INDEX_SET, message: e.message });
+  }
 }
 
 /*
@@ -20,6 +61,8 @@ function* fetchData(action) {
 */
 function* mySaga() {
   yield takeEvery(PAGE_INDEX_GET, fetchData);
+  yield takeLatest(PAGE_INDEX_UPPER, fetchUpdate);
+  yield takeLatest(PAGE_INDEX_LOWER, fetchLower);
 }
 
 export default mySaga;

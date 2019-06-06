@@ -2,7 +2,9 @@
 import { testDB } from '../app';
 import {
     PAGE_INDEX_GET,
-    PAGE_INDEX_SET
+    PAGE_INDEX_SET,
+    PAGE_INDEX_UPPER,
+    PAGE_INDEX_LOWER
   } from '../constants/index.js'
   
   export const getData = () => {
@@ -16,6 +18,16 @@ import {
       data
     }
   }
-  
+  export const getDataUpper = () => {
+    return {
+      type: PAGE_INDEX_UPPER
+    }
+  }
+
+  export const getDataLower = () => {
+    return {
+      type: PAGE_INDEX_LOWER
+    }
+  }
 
   

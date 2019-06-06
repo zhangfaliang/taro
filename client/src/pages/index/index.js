@@ -14,7 +14,7 @@ import withWeapp from "@tarojs/with-weapp";
 import "./index.scss";
 //index.js
 var util = require("../../utils/util.js");
-import { getData } from "../../actions/index";
+import { getData, getDataUpper,getDataLower } from "../../actions/index";
 import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import { add } from "../../actions/counter";
@@ -31,14 +31,28 @@ import { add } from "../../actions/counter";
     },
     add() {
       dispatch(add());
+    },
+    getDataUpper() {
+      dispatch(getDataUpper());
+    },
+    getDataLower() {
+      dispatch(getDataLower());
     }
+    
   })
 )
 class Toggle extends Component {
   constructor(props) {
     super(props);
   }
-
+  upper = () => {
+    this.props.getDataUpper();
+    console.log("getDataUpper");
+  };
+  lower = e => {
+    this.props.getDataLower();
+    console.log("lower");
+  };
   onClick = e => {
     e.stopPropagation();
     this.props.add();
@@ -51,19 +65,17 @@ class Toggle extends Component {
     const { feed, feed_length } = feedData;
     const answer_id = 0;
     const question_id = 6;
-    const toView=true;
-    const scrollTop=true;
     console.log(feedData);
     return (
       <ScrollView
         scrollY="true"
         className="container"
-        onScrollToUpper={this.onClick}
+        onScrollToUpper={this.upper}
         upperThreshold="10"
         lowerThreshold="5"
-        onScrollToLower={this.onClick}
-        scrollIntoView={toView}
-        scrollTop={scrollTop}
+        onScrollToLower={this.lower}
+        scrollIntoView={true}
+        scrollTop={true}
       >
         <View className="todo">
           <View className="search flex-wrp">

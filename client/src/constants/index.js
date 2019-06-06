@@ -1,2 +1,6 @@
 export const PAGE_INDEX_GET = 'PAGE_INDEX_GET'
 export const PAGE_INDEX_SET = 'PAGE_INDEX_SET'
+export const PAGE_INDEX_UPPER = 'PAGE_INDEX_UPPER'
+export const PAGE_INDEX_LOWER = 'PAGE_INDEX_LOWER'
+
+
