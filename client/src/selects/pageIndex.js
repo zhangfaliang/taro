@@ -12,8 +12,8 @@ export const makeFeed = createSelector(
     pageIndex,
   (pageIndex) => {
      return {
-        feed: get(pageIndex,'data',[]),
-        feed_length:  get(pageIndex,'data',[]).length 
+        feed: get(pageIndex,'pageDate',[]),
+        feed_length:  get(pageIndex,'pageDate',[]).length 
      }
   }
 )
