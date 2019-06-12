@@ -1,10 +1,8 @@
 import Taro, { Component } from "@tarojs/taro";
-import withWeapp from "@tarojs/with-weapp";
 import {
     View,
     Image,
     Input,
-    Text
   } from "@tarojs/components";
 import   './index.scss';
 
@@ -25,7 +23,7 @@ class Search extends Component{
             <View className="search-left flex-item">
               <Image src={require("../../images/search.png")} />
               <Input
-                placeholder="搜索话题, 问题或人"
+                placeholder="搜索话题, 问题或人  werwe"
                 placeholderClass="search-placeholder"
                 value={this.state.value}
                 onInput={this.onInput}
