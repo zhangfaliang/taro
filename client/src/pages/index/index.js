@@ -4,7 +4,6 @@ import { Block, ScrollView, View, Image, Text } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
 import "./index.scss";
 //index.js
-var util = require("../../utils/util.js");
 import { getData, getDataUpper, getDataLower } from "../../actions/index";
 import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
@@ -42,14 +41,11 @@ class Toggle extends Component {
     this.props.getDataLower();
   };
   bindItemTap = () => {
-    console.log('===========')
-
     Taro.navigateTo({
       url: "../answer/answer"
     });
   };
   bindQueTap = () => {
-    console.log('---------')
     Taro.navigateTo({
       url: "../question/question"
     });

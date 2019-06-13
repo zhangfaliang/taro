@@ -51,7 +51,7 @@ class App extends Taro.Component {
     window: {
       backgroundTextStyle: "light",
       navigationBarBackgroundColor: "#0068C4",
-      navigationBarTitleText: "知乎",
+      navigationBarTitleText: "笑话",
       navigationBarTextStyle: "white",
       enablePullDownRefresh: true
     },
