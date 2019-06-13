@@ -3,7 +3,6 @@ import { createStructuredSelector } from "reselect";
 import { Block, ScrollView, View, Image, Text } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
 import "./index.scss";
-//index.js
 import { getData, getDataUpper, getDataLower } from "../../actions/index";
 import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
@@ -40,9 +39,9 @@ class Toggle extends Component {
   lower = e => {
     this.props.getDataLower();
   };
-  bindItemTap = () => {
+  bindItemTap = (answer_id) => {
     Taro.navigateTo({
-      url: "../answer/answer"
+      url: `../answer/answer?answer_id=${answer_id}`
     });
   };
   bindQueTap = () => {
@@ -112,7 +111,9 @@ class Toggle extends Component {
                           </A>
                         </View>
                         <View className="answer-body">
-                          <View onClick={this.bindItemTap}>
+                          <View
+                            onClick={() => this.bindItemTap(answer_id)}
+                          >
                             <Text className="answer-txt" aid={answer_id}>
                               {answer_ctnt}
                             </Text>

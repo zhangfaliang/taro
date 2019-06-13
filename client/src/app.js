@@ -1,9 +1,10 @@
-import '@tarojs/async-await'; 
-import {Provider} from '@tarojs/redux';
-import configStore from './store';
+import "@tarojs/async-await";
+import { Provider } from "@tarojs/redux";
 import Taro from "@tarojs/taro";
+import configStore from "./store";
 import "./app.scss";
 import Index from "./pages/copy/index";
+
 Taro.cloud.init({
   env: "chiji-test-3e054b"
 });
@@ -41,11 +42,11 @@ class App extends Taro.Component {
   config = {
     pages: [
       "pages/index/index",
+      "pages/answer/answer",
       "pages/discovery/discovery",
       "pages/notify/notify",
       "pages/chat/chat",
       "pages/more/more",
-      "pages/answer/answer",
       "pages/question/question"
     ],
     window: {
