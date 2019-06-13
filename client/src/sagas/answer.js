@@ -13,7 +13,7 @@ function* fetchData(action) {
     const data = yield call(getAnswerDetail,answer_id);
     yield put({ type: ANSWER_PAGE_INDEX_SET, data });
   } catch (e) {
-    // yield put({ type: PAGE_INDEX_SET, message: e.message });
+    console.log('ANSWER_PAGE_INDEX_SET')
   }
 }
 
