@@ -13,6 +13,15 @@
   text-align: center;
 }
 
+.goodBad {
+  display: flex;
+  flex-flow: row;
+  justify-content: center;
+  justify-items: center;
+  align-items: center
+}
+
+
 .answer-footer {
   position: fixed;
   bottom: 0;
