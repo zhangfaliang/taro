@@ -1,9 +1,10 @@
 import Taro, { Component } from "@tarojs/taro";
-import { View, Image, Input } from "@tarojs/components";
+import { View, Image } from "@tarojs/components";
 import "./index.scss";
 class Footer extends Component {
 
   render() {
+      const { answerDetail } = this.props;
     return (
       <View className="answer-footer flex-wrp">
         <View className="good flex-item">

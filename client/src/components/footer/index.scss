@@ -8,6 +8,11 @@
   align-items: stretch;
 }
 
+.flex-item {
+  flex-grow: 1;
+  text-align: center;
+}
+
 .answer-footer {
   position: fixed;
   bottom: 0;

@@ -12,7 +12,7 @@ import Footer from "../../components/footer/index";
     answerDetail: makeAnswerDetail
   }),
   dispatch => ({
-    onGetAnswerPageData: (answer_id) => {
+    onGetAnswerPageData: answer_id => {
       dispatch(getAnswerPageData(answer_id));
     }
   })
@@ -20,12 +20,10 @@ import Footer from "../../components/footer/index";
 class Toggle extends Component {
   componentWillMount() {
     const answer_id = get(this, "$router.params.answer_id");
-    console.log(answer_id,'answer_idanswer_idanswer_idanswer_idanswer_id')
     this.props.onGetAnswerPageData(answer_id);
   }
   render() {
     const { answerDetail } = this.props;
-    console.log(answerDetail);
     return (
       <View className="container">
         <View className="question" onClick={this.toQuestion}>
@@ -66,7 +64,9 @@ class Toggle extends Component {
               );
             })}
         </View>
-        <Footer />
+        <View className="answer-footer-content">
+          <Footer answerDetail={answerDetail} />
+        </View>
       </View>
     );
   }
