@@ -6,7 +6,6 @@ import "./index.scss";
 import { getData, getDataUpper, getDataLower } from "../../actions/index";
 import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
-import { add } from "../../actions/counter";
 import Search from "../../components/Search/index";
 @connect(
   createStructuredSelector({
@@ -17,9 +16,6 @@ import Search from "../../components/Search/index";
   dispatch => ({
     asyncPageIndexGetData: () => {
       dispatch(getData());
-    },
-    add() {
-      dispatch(add());
     },
     getDataUpper() {
       dispatch(getDataUpper());

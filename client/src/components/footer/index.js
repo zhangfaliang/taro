@@ -2,16 +2,7 @@ import Taro, { Component } from "@tarojs/taro";
 import { View, Image, Input } from "@tarojs/components";
 import "./index.scss";
 class Footer extends Component {
-  onSearch = e => {
-    e.stopPropagation();
-    console.log(e);
-    //../../images/search.png
-  };
-  onInput = e => {
-    // e.stopPropagation();
-    console.log(e);
-    //../../images/search.png
-  };
+
   render() {
     return (
       <View className="answer-footer flex-wrp">

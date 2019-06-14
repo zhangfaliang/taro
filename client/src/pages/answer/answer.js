@@ -3,7 +3,7 @@ import { connect } from "@tarojs/redux";
 import { createStructuredSelector } from "reselect";
 import { View, Image, Text } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
-import "./index.scss";
+import "./answer.scss";
 import { getAnswerPageData } from "../../actions/answer";
 import { makeAnswerDetail } from "../../selects/answer";
 import Footer from "../../components/footer/index";
@@ -12,14 +12,16 @@ import Footer from "../../components/footer/index";
     answerDetail: makeAnswerDetail
   }),
   dispatch => ({
-    onGetAnswerPageData: () => {
-      dispatch(getAnswerPageData());
+    onGetAnswerPageData: (answer_id) => {
+      dispatch(getAnswerPageData(answer_id));
     }
   })
 )
 class Toggle extends Component {
   componentWillMount() {
-    this.props.onGetAnswerPageData();
+    const answer_id = get(this, "$router.params.answer_id");
+    console.log(answer_id,'answer_idanswer_idanswer_idanswer_idanswer_id')
+    this.props.onGetAnswerPageData(answer_id);
   }
   render() {
     const { answerDetail } = this.props;

@@ -9,6 +9,8 @@ import {
 // worker Saga : 将在 PAGE_INDEX_SET action 被 dispatch 时调用
 function* fetchData(action) {
     const { answer_id } =action
+    console.log(answer_id,'ANSWER_PAGE_INDEX_SET')
+
   try {
     const data = yield call(getAnswerDetail,answer_id);
     yield put({ type: ANSWER_PAGE_INDEX_SET, data });
