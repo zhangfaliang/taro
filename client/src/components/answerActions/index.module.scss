@@ -1,0 +1,14 @@
+ .answer-actions {
+   width: 690px;
+   padding: 10px 0 0;
+   color: #a0acac;
+   view {
+     display: inline-block;
+     vertical-align: text-bottom;
+     padding: 0 10px 0 0;
+     font-size: 24px;
+   }
+   .dot ::after {
+     content: "•";
+   }
+ }

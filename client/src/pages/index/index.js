@@ -7,6 +7,8 @@ import { getData, getDataUpper, getDataLower } from "../../actions/index";
 import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import Search from "../../components/Search/index";
+import IndexAnswerInfo from "../../components/indexAnswerInfo";
+import AnswerActions from "../../components/answerActions";
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
@@ -35,7 +37,7 @@ class Toggle extends Component {
   lower = e => {
     this.props.getDataLower();
   };
-  bindItemTap = (answer_id) => {
+  bindItemTap = answer_id => {
     Taro.navigateTo({
       url: `../answer/answer?answer_id=${answer_id}`
     });
@@ -83,20 +85,18 @@ class Toggle extends Component {
                 return (
                   <Block data-idx={idx}>
                     <View className="feed-item">
-                      <View className="feed-source">
-                        <A className>
-                          <View className="avatar">
-                            <Image src={feed_source_img} />
-                          </View>
-                          <Text>{feed_source_name + feed_source_txt}</Text>
-                        </A>
-                        <Image
-                          className="item-more"
-                          mode="aspectFit"
-                          src={require("../../images/more.png")}
-                        />
-                      </View>
+                      <IndexAnswerInfo
+                        feed_source_img={feed_source_img}
+                        feed_source_name={feed_source_name}
+                        feed_source_txt={feed_source_txt}
+                      />
+                     
                       <View className="feed-content">
+                      <AnswerActions
+                        good_num={good_num}
+                        comment_num={comment_num}
+                        bindItemTap={this.bindItemTap}
+                      />
                         <View
                           className="question"
                           qid={question_id}
@@ -107,13 +107,16 @@ class Toggle extends Component {
                           </A>
                         </View>
                         <View className="answer-body">
-                          <View
-                            onClick={() => this.bindItemTap(answer_id)}
-                          >
+                          <View onClick={() => this.bindItemTap(answer_id)}>
                             <Text className="answer-txt" aid={answer_id}>
                               {answer_ctnt}
                             </Text>
                           </View>
+                          <AnswerActions
+                            good_num={good_num}
+                            comment_num={comment_num}
+                            bindItemTap={this.bindItemTap}
+                          />
                           <View
                             className="answer-actions"
                             onClick={this.bindItemTap}

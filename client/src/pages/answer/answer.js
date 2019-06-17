@@ -7,6 +7,7 @@ import "./answer.scss";
 import { getAnswerPageData } from "../../actions/answer";
 import { makeAnswerDetail } from "../../selects/answer";
 import Footer from "../../components/footer/index";
+import AnswerUserInfo from "../../components/answerUserInfo/index";
 @connect(
   createStructuredSelector({
     answerDetail: makeAnswerDetail
@@ -22,6 +23,17 @@ class Toggle extends Component {
     const answer_id = get(this, "$router.params.answer_id");
     this.props.onGetAnswerPageData(answer_id);
   }
+  toQuestion = () => {
+    Taro.navigateTo({
+      url: "../question/question"
+    });
+  };
+  tapName = event => {
+    console.log(event);
+  };
+  config = {
+    navigationBarTitleText: "回答"
+  };
   render() {
     const { answerDetail } = this.props;
     return (
@@ -29,25 +41,7 @@ class Toggle extends Component {
         <View className="question" onClick={this.toQuestion}>
           <Text className="question-title">{answerDetail.title}</Text>
         </View>
-        <View className="answerer-wrp">
-          <View className="bg-half" />
-          <View className="answerer flex-wrp">
-            <View className="avatar flex-item">
-              <Image src={answerDetail.userInfo.userImg} />
-            </View>
-            <View className="answerer-info flex-item">
-              <Text className="answerer-name">
-                {answerDetail.userInfo.name}
-              </Text>
-              <Text className="answerer-des">
-                {answerDetail.userInfo.label}
-              </Text>
-            </View>
-            <View className="follow flex-item">
-              <Text>十 关注</Text>
-            </View>
-          </View>
-        </View>
+        <AnswerUserInfo userInfo={answerDetail.userInfo} />
         <View className="answer-content">
           {answerDetail.content &&
             answerDetail.content.map(item => {
