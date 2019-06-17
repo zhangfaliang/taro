@@ -7,7 +7,7 @@ import { getData, getDataUpper, getDataLower } from "../../actions/index";
 import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import Search from "../../components/Search/index";
-import IndexAnswerInfo from "../../components/indexAnswerInfo";
+import IndexAnswerInfo from "../../components/indexAnswerInfo/index";
 import AnswerAction from "../../components/answerActions/index";
 @connect(
   createStructuredSelector({

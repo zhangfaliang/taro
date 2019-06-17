@@ -1,13 +1,13 @@
-  .feed-source {
-    .avatar{
+.feed-source {
+    .avatar {
         position: relative;
         display: inline-block;
-      }
-      a{
+    }
+    a {
         display: inline-block;
         height: 40px;
-      }
-      image{
+    }
+    image {
         /*position: absolute;*/
         display: inline-block;
         width: 45px;
@@ -15,8 +15,8 @@
         border-radius: 45px;
         top: 10px;
         vertical-align: middle;
-      }
-      text{
+    }
+    text {
         /*position: absolute;*/
         display: inline-block;
         height: 40px;
@@ -25,11 +25,11 @@
         margin: 0 0 0 15px;
         color: #a0acac;
         font-size: 26px;
-      }
-      .item-more{
+    }
+    .item-more {
         display: inline-block;
         width: 40px;
         height: 45px;
         float: right;
-      }
-  }
+    }
+}

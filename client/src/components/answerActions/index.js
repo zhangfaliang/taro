@@ -17,9 +17,11 @@ class AnswerAction extends Component {
       <View className={wrapCls} onClick={bindItemTap}>
         <View className={viewCls}>
           <A>{good_num + " 赞同"}</A>
+          <View></View>
         </View>
         <View className={viewCls}>
           <A>{comment_num + " 评论"}</A>
+          <View></View>
         </View>
         <View className={viewCls}>
           <A>关注问题</A>

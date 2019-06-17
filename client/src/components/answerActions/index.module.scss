@@ -1,14 +1,19 @@
-.answer-actions{
-  width: 690px;
-  padding: 10px 0  0;
-  color: #a0acac;
-}
-.answer-actions view{
-  display: inline-block;
-  vertical-align: text-bottom;
-  padding: 0 10px 0 0;
-  font-size: 24px;
-}
-.answer-actions .dot ::after{
-  content: "•";
+.answer-actions {
+    width: 690px;
+    padding: 10px 0 0;
+    color: #a0acac;
+    view {
+        display: inline-block;
+        vertical-align: text-bottom;
+        padding: 0 10px 0 0;
+        font-size: 24px;
+    }
+    .dot {
+        view {
+            margin-left: 10px;
+            height: 10px;
+            background-color: #a0acac;
+            border-radius: 50%;
+        }
+    }
 }
