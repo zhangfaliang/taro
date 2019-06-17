@@ -8,7 +8,7 @@ import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import Search from "../../components/Search/index";
 import IndexAnswerInfo from "../../components/indexAnswerInfo";
-import AnswerActions from "../../components/answerActions";
+import AnswerAction from "../../components/answerActions/index";
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
@@ -90,13 +90,8 @@ class Toggle extends Component {
                         feed_source_name={feed_source_name}
                         feed_source_txt={feed_source_txt}
                       />
-                     
+
                       <View className="feed-content">
-                      <AnswerActions
-                        good_num={good_num}
-                        comment_num={comment_num}
-                        bindItemTap={this.bindItemTap}
-                      />
                         <View
                           className="question"
                           qid={question_id}
@@ -112,25 +107,11 @@ class Toggle extends Component {
                               {answer_ctnt}
                             </Text>
                           </View>
-                          <AnswerActions
+                          <AnswerAction
                             good_num={good_num}
                             comment_num={comment_num}
                             bindItemTap={this.bindItemTap}
                           />
-                          <View
-                            className="answer-actions"
-                            onClick={this.bindItemTap}
-                          >
-                            <View className="like dot">
-                              <A>{good_num + " 赞同"}</A>
-                            </View>
-                            <View className="comments dot">
-                              <A>{comment_num + " 评论"}</A>
-                            </View>
-                            <View className="follow-it">
-                              <A>关注问题</A>
-                            </View>
-                          </View>
                         </View>
                       </View>
                     </View>
