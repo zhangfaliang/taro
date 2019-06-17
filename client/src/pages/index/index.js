@@ -9,6 +9,8 @@ import { makeCounter } from "../../selects/count";
 import Search from "../../components/Search/index";
 import IndexAnswerInfo from "../../components/indexAnswerInfo/index";
 import AnswerAction from "../../components/answerActions/index";
+import AnswerQuestionContent from '../../components/answerQuestionContent/index'
+import QuestionName from '../../components/questionName/index'
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
@@ -92,21 +94,18 @@ class Toggle extends Component {
                       />
 
                       <View className="feed-content">
-                        <View
-                          className="question"
-                          qid={question_id}
-                          onClick={this.bindQueTap}
-                        >
-                          <A className="question-link">
-                            <Text>{question}</Text>
-                          </A>
-                        </View>
+                        <QuestionName
+                          question_id={question_id}
+                          bindQueTap={this.bindQueTap}
+                          question={question}
+                        />
+
                         <View className="answer-body">
-                          <View onClick={() => this.bindItemTap(answer_id)}>
-                            <Text className="answer-txt" aid={answer_id}>
-                              {answer_ctnt}
-                            </Text>
-                          </View>
+                          <AnswerQuestionContent
+                            bindItemTap={this.bindItemTap}
+                            answer_ctnt={answer_ctnt}
+                            answer_id={answer_id}
+                          />
                           <AnswerAction
                             good_num={good_num}
                             comment_num={comment_num}
