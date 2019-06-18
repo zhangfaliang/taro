@@ -42,9 +42,9 @@ class Toggle extends Component {
       url: `../answer/answer?answer_id=${answer_id}`
     });
   };
-  bindQueTap = () => {
+  bindQueTap = (question_id) => {
     Taro.navigateTo({
-      url: "../question/question"
+      url: `../question/question?question_id=${question_id}`
     });
   };
 
@@ -95,7 +95,7 @@ class Toggle extends Component {
                         <View
                           className="question"
                           qid={question_id}
-                          onClick={this.bindQueTap}
+                          onClick={this.bindQueTap.bind(this,question_id)}
                         >
                           <A className="question-link">
                             <Text>{question}</Text>
