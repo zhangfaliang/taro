@@ -41,6 +41,7 @@ class App extends Taro.Component {
   };
   config = {
     pages: [
+      "pages/question/question",
       "pages/index/index",
       "pages/answer/answer",
     
@@ -48,7 +49,6 @@ class App extends Taro.Component {
       "pages/notify/notify",
       "pages/chat/chat",
       "pages/more/more",
-      "pages/question/question"
     ],
     window: {
       backgroundTextStyle: "light",

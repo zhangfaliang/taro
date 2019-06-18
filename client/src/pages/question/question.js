@@ -2,6 +2,7 @@ import Nerv from "nervjs";
 import { View, Text, Image } from "@tarojs/components";
 import Taro from "@tarojs/taro";
 import withWeapp from "@tarojs/with-weapp";
+import { get } from "lodash";
 import "./question.scss";
 //answer.js
 var util = require("../../utils/util.js");
@@ -25,10 +26,13 @@ class Question extends Taro.Component {
     //调用应用实例的方法获取全局数据
     app.getUserInfo(function(userInfo) {
       //更新数据
+      console.log(userInfo, "=============================");
       that.setData({
         userInfo: userInfo
       });
     });
+    const question_id = get(this, "$router.params.question_id");
+    // this.props.onGetAnswerPageData(answer_id);
   };
   tapName = event => {
     console.log(event);
@@ -38,32 +42,33 @@ class Question extends Taro.Component {
   };
 
   render() {
+    const data = {
+      tag: ["阅读", "电子书", "Kindle", "书籍", "文学"],
+      title: "选择 Kindle 而不是纸质书的原因是什么",
+      user_label: "WEB前端*不靠谱天气预报员*想做代码小仙女",
+      watch_num:3316,
+      comment_num:27
+    };
     return (
       <View className="container">
         <View className="question-wrp">
           <View className="question-item">
             <View className="que-tag">
-              <Text className="tag">阅读</Text>
-              <Text className="tag">电子书</Text>
-              <Text className="tag">Kindle</Text>
-              <Text className="tag">书籍</Text>
-              <Text className="tag">文学</Text>
+              {data.tag.map(item => (
+                <Text className="tag">{item}</Text>
+              ))}
             </View>
-            <View className="que-title">
-              选择 Kindle 而不是纸质书的原因是什么？
-            </View>
-            <View className="que-content">
-              WEB前端*不靠谱天气预报员*想做代码小仙女
-            </View>
+            <View className="que-title">{data.title}</View>
+            <View className="que-content">{data.user_label}</View>
             <View className="que-follow">
               <View className="left">
                 <View className="watch">
                   <Image src={require("../../images/eye.png")} />
-                  <Text>3316</Text>
+                  <Text>{data.watch_num}</Text>
                 </View>
                 <View className="comment">
                   <Image src={require("../../images/comment2.png")} />
-                  <Text>27</Text>
+                  <Text>{data.comment_num}</Text>
                 </View>
               </View>
               <View className="right">关注</View>
