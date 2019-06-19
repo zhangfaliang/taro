@@ -13,12 +13,19 @@
     margin: 0 10px 0 0;
     vertical-align: middle;
   }
+
 }
 
 
 .left {
   float: left;
   padding: 10px 0;
+  answer-todo{
+    width: 50%;
+  }
+  view{
+    flex: 1;
+  }
 }
 
 .watch {

@@ -11,7 +11,8 @@ import {
   FollowLeft,
   QuestionLabel
 } from "../../components/queFollow";
-import AnswerTodo from "../../components/answerTodo/answerTodo";
+import { AnswerTodo, AnswerTodoWrap } from "../../components/answerTodo";
+
 import Buttons from "../../components/button/index";
 //answer.js
 var util = require("../../utils/util.js");
@@ -86,7 +87,7 @@ class Question extends Taro.Component {
               <Buttons />
             </QueFollow>
           </View>
-          <View className="que-operate flex-wrp">
+          <AnswerTodoWrap>
             <AnswerTodo
               text="邀请回答"
               imageUrl={require("../../images/invite.png")}
@@ -95,7 +96,7 @@ class Question extends Taro.Component {
               text="写回答"
               imageUrl={require("../../images/write.png")}
             />
-          </View>
+          </AnswerTodoWrap>
           <View className="answer-feed">
             <View onClick={this.bindItemTap} className="feed-item">
               <View className="feed-source">

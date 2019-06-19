@@ -4,11 +4,10 @@ import { View, Text } from "@tarojs/components";
 import styles from './index.module.scss';
 class answerTodo extends Component {
   render() {
-    const { classNames, text, imageUrl } = this.props;
+    const {  text, imageUrl } = this.props;
     const todoCls = classnames({
       [styles["invite"]]: true,
       [styles["flex-item"]]: true,
-      [styles[classNames || ""]]: classNames
     });
     return (
       <View className={todoCls}>
