@@ -4,8 +4,8 @@ import { View, Text } from "@tarojs/components";
 import styles from "./index.module.scss";
 
 class QuestionLabel extends Component {
+  static COMPONENT_NAME = "QUESTION_LABEL";
   render() {
-    //require("../../images/eye.png")
     const { classNames, text, imageUrl } = this.props;
     return (
       <View className={styles[classNames || "watch"]}>

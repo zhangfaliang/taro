@@ -4,10 +4,12 @@ import { View, Text } from "@tarojs/components";
 
 import styles from "./index.module.scss";
 
-class Button extends Component {
+class Buttons extends Component {
+  static COMPONENT_NAME = "BUTTON";
+
   constructor(props) {
     super(props);
-    state = {
+    this.state = {
       isActive: props.isActive || false
     };
   }
@@ -33,14 +35,14 @@ class Button extends Component {
     const { text, className } = this.props;
     const btnCls = classnames({
       [styles[className || "btn"]]: true,
-      [styles[isActive]]: this.state.isActive
+      [styles.isActive]: this.state.isActive
     });
     return (
       <View className={btnCls} onClick={this.handleClick}>
-       {text||'关注'} 
+        {text || "关注"}
       </View>
     );
   }
 }
 
-export default Button;
+export default Buttons;
