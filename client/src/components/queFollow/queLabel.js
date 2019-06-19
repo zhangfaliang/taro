@@ -6,14 +6,15 @@ import styles from "./index.module.scss";
 class QuestionLabel extends Component {
   static COMPONENT_NAME = "QUESTION_LABEL";
   render() {
-    const { classNames, text, imageUrl } = this.props;
+    const {  text, imageUrl } = this.props;
     return (
-      <View className={styles[classNames || "watch"]}>
+      <View className={styles["watch"]}>
         <Image src={imageUrl} />
         <Text>{text}</Text>
       </View>
     );
   }
 }
+
 
 export default QuestionLabel;

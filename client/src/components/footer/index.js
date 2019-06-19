@@ -18,7 +18,7 @@ class Footer extends Component {
     return (
       <View className="answer-footer flex-wrp">
         <View className="good flex-item">
-          <GoodBadLabel goodNum={answerDetail.goodNum} />
+          <GoodBadLabel goodNum={answerDetail&&answerDetail.goodNum} />
         </View>
         <View className="operation-wrp flex-item">
           <View className="operation flex-wrp flex-tab">

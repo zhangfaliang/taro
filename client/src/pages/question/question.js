@@ -75,7 +75,6 @@ class Question extends Taro.Component {
             <QueFollow>
               <FollowLeft>
                 <QuestionLabel
-                  classNames="watch"
                   imageUrl={require("../../images/eye.png")}
                   text={data.watch_num}
                 />

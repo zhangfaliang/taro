@@ -9,7 +9,7 @@ class GoodBadLabel extends Component {
         <View className="good-bad">
           <Image src={require("../../images/good-bad.png")} />
         </View>
-        <View className="good-num">{goodNum}</View>
+        <View className="good-num">{goodNum&&goodNum}</View>
       </View>
     );
   }

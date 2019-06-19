@@ -1,26 +1,15 @@
 import Taro, { Component } from "@tarojs/taro";
-import { get } from "lodash";
 import { View, Text } from "@tarojs/components";
-import QueLabel from "./queLabel";
 import styles from "./index.module.scss";
 
 class FollowLeft extends Component {
-    static COMPONENT_NAME='FOLLOW_LEFT'
+  static COMPONENT_NAME = "FOLLOW_LEFT";
   render() {
     //require("../../images/eye.png")
-    const { classNames, text, imageUrl, children } = this.props;
-    const options = React.Children.map(children, option => {
-      const { ...other } = option.props;
-      if (get(option, "type.COMPONENT_NAME") === "QUESTION_LABEL") {
-        <QueLabel {...other} />;
-      }
-    });
-    return (
-      <View className={styles[classNames || "left"]}>
-       {options}
-      </View>
-    );
+    const { children } = this.props;
+    return <View className={styles["left"]}>{children}</View>;
   }
 }
+
 
 export default FollowLeft;
