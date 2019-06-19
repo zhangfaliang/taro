@@ -4,6 +4,11 @@ import Taro from "@tarojs/taro";
 import withWeapp from "@tarojs/with-weapp";
 import { get } from "lodash";
 import "./question.scss";
+import QuestionTag from "../../components/questionTag";
+import QuestionName from "../../components/questionName";
+import UserLabel from "../../components//answerUserInfo/userLabel";
+import { QuestionLabel } from "../../components/queFollow/queLabel";
+import Button from '../../components/button/index';
 //answer.js
 var util = require("../../utils/util.js");
 
@@ -46,32 +51,38 @@ class Question extends Taro.Component {
       tag: ["阅读", "电子书", "Kindle", "书籍", "文学"],
       title: "选择 Kindle 而不是纸质书的原因是什么",
       user_label: "WEB前端*不靠谱天气预报员*想做代码小仙女",
-      watch_num:3316,
-      comment_num:27
+      watch_num: 3316,
+      comment_num: 27,
+      answerInfo: {
+        answer_name: "Rebecca",
+        answer_txt:
+          "难道不明白纸质书更贵啊！！！若觉得kindle更贵，我觉得要么阅读量太少，那确实没有买kindle的必要。要么买的都是盗版的纸质书？我不清楚不加以评论。。。 另外，用kindle看小说的...",
+        like_num: "3.9K ",
+        comments_num: "254 ",
+        time: "2 "
+      }
     };
     return (
       <View className="container">
         <View className="question-wrp">
           <View className="question-item">
-            <View className="que-tag">
-              {data.tag.map(item => (
-                <Text className="tag">{item}</Text>
-              ))}
-            </View>
-            <View className="que-title">{data.title}</View>
-            <View className="que-content">{data.user_label}</View>
+            <QuestionTag tags={data.tag} />
+            <QuestionName classNames="que-title" question={data.title} />
+            <UserLabel user_label={data.user_label} />
+            {/* <View className="que-content">{data.user_label}</View> */}
             <View className="que-follow">
               <View className="left">
-                <View className="watch">
-                  <Image src={require("../../images/eye.png")} />
-                  <Text>{data.watch_num}</Text>
-                </View>
-                <View className="comment">
-                  <Image src={require("../../images/comment2.png")} />
-                  <Text>{data.comment_num}</Text>
-                </View>
+                <QuestionLabel
+                  classNames="watch"
+                  imageUrl={require("../../images/eye.png")}
+                  text={data.watch_num}
+                />
+                <QuestionLabel
+                  imageUrl={require("../../images/comment2.png")}
+                  text={data.comment_num}
+                />
               </View>
-              <View className="right">关注</View>
+              <Button/>
             </View>
           </View>
           <View className="que-operate flex-wrp">
