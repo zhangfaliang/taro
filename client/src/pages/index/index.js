@@ -12,6 +12,8 @@ import AnswerAction from "../../components/answerActions/index";
 import AnswerQuestionContent from "../../components/answerQuestionContent/index";
 import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
+import Layer from '../../components/layer'
+
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
@@ -33,6 +35,10 @@ import ImageWrap from "../../components/images";
 class Toggle extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      isOpenLayer: false,
+      imageUrl: ''
+    }
   }
   upper = () => {
     this.props.getDataUpper();
@@ -50,18 +56,28 @@ class Toggle extends Component {
     //   url: `../question/question?question_id=${question_id}`
     // });
   };
+  handelImgClik = (imageUrl) => {
+    this.setState({
+      isOpenLayer: true,
+      imageUrl
+    })
+  }
 
+  handleClose = () => {
+    this.setState({
+      isOpenLayer: false,
+
+    })
+  }
   componentWillMount() {
     this.props.asyncPageIndexGetData();
   }
   render() {
     const { feedData } = this.props;
     const { feed } = feedData;
-    console.log(feedData);
-
     return (
       <View>
-        <Search />
+        {/* <Search /> */}
         <ScrollView
           scrollY="true"
           className="container"
@@ -99,9 +115,9 @@ class Toggle extends Component {
                         />
 
                         <View className="answer-body">
-                          <ImageWrap imageUrl={original_pic} />
+                          <ImageWrap imageUrl={original_pic} handelImgClik={this.handelImgClik} />
 
-                          <AnswerAction
+                          {/* <AnswerAction
                             texts={[
                               {
                                 text: "赞同",
@@ -115,9 +131,9 @@ class Toggle extends Component {
                                 text: "关注问题",
                                 showDot: false
                               }
-                            ]}
-                            bindItemTap={this.bindItemTap}
-                          />
+                            ]} 
+                            // bindItemTap={this.bindItemTap}
+                          />*/}
                         </View>
                       </View>
                     </View>
@@ -126,6 +142,7 @@ class Toggle extends Component {
               })}
           </View>
         </ScrollView>
+        <Layer handleClose={this.handleClose} isOpen={this.state.isOpenLayer} imageUrl={this.state.imageUrl} />
       </View>
     );
   }
