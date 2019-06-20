@@ -4,13 +4,9 @@ import styles from "./index.module.scss";
 
 class QueFollow extends Component {
   render() {
-    //require("../../images/eye.png")
-    const {  children } = this.props;
-    console.log(Taro.Children,'TaroTaroTaroTaroTaroTaroTaroTaro')
- 
+    const { children } = this.props;
     return <View className={styles["que-follow"]}>{children}</View>;
   }
 }
-
 
 export default QueFollow;

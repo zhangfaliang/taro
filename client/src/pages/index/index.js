@@ -96,7 +96,7 @@ class Toggle extends Component {
                       <View className="feed-content">
                         <QuestionName
                           question_id={question_id}
-                          bindQueTap={this.bindQueTap}
+                          bindQueTap={this.bindQueTap.bind(this,question_id)}
                           question={question}
                         />
 
