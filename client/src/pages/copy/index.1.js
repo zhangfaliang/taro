@@ -57,7 +57,6 @@ class Toggle extends Component {
   render() {
     const { feedData } = this.props;
     const { feed } = feedData;
-    console.log(feedData);
 
     return (
       <View>
@@ -76,39 +75,47 @@ class Toggle extends Component {
             {feed &&
               feed.map((item, idx) => {
                 const {
-                  title,
-                  bmiddle_pic,
-                  original_pic,
-                  thumbnail_pic,
-                  _id
+                  answer_id,
+                  question_id,
+                  feed_source_img,
+                  feed_source_name,
+                  feed_source_txt,
+                  question,
+                  answer_ctnt,
+                  good_num,
+                  comment_num
                 } = item;
                 return (
                   <Block data-idx={idx}>
                     <View className="feed-item">
-                      {/* <IndexAnswerInfo
+                      <IndexAnswerInfo
                         feed_source_img={feed_source_img}
                         feed_source_name={feed_source_name}
                         feed_source_txt={feed_source_txt}
-                      /> */}
+                      />
 
                       <View className="feed-content">
                         <QuestionName
-                          question_id={_id}
-                          bindQueTap={this.bindQueTap.bind(this, _id)}
-                          question={title}
+                          question_id={question_id}
+                          bindQueTap={this.bindQueTap.bind(this, question_id)}
+                          question={question}
                         />
 
                         <View className="answer-body">
-                          <ImageWrap imageUrl={original_pic} />
-
+                          <ImageWrap imageUrl="http://wx1.sinaimg.cn/thumbnail/006xNQKGly1g45ee9ej0yj30hs4dsaot.jpg" />
+                          {/* <AnswerQuestionContent
+                            bindItemTap={this.bindItemTap}
+                            answer_ctnt={answer_ctnt}
+                            answer_id={answer_id}
+                          /> */}
                           <AnswerAction
                             texts={[
                               {
-                                text: "赞同",
+                                text: good_num + "赞同",
                                 showDot: true
                               },
                               {
-                                text: "评论",
+                                text: comment_num + "评论",
                                 showDot: true
                               },
                               {

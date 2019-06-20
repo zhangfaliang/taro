@@ -32,6 +32,11 @@ import { makeAnswerList } from "../../selects/answerList";
   })
 )
 class Question extends Component {
+  bindItemTap = answer_id => {
+    Taro.navigateTo({
+      url: `../answer/answer?answer_id=${answer_id}`
+    });
+  };
   componentWillMount() {
     const question_id = get(this, "$router.params.question_id");
     this.props.onGetAnswerListPageData(question_id);
@@ -72,9 +77,12 @@ class Question extends Component {
           <View className="answer-feed">
             {answerList.answerInfo &&
               answerList.answerInfo.map((item, idx) => {
-                const { answer_name, answer_txt, texts } = item;
+                const { answer_name, answer_txt, texts, answer_id } = item;
                 return (
-                  <View onClick={this.bindItemTap} className="feed-item">
+                  <View
+                    onClick={this.bindItemTap.bind(this, answer_id)}
+                    className="feed-item"
+                  >
                     <IndexAnswerInfo
                       feed_source_img={require("../../images/icon1.jpeg")}
                       feed_source_name={answer_name}

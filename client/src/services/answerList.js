@@ -1,6 +1,8 @@
-import { get } from 'lodash';
+import { get } from "lodash";
+
 import { testDB } from "../app";
-export const getAnswerList= question_id => {
+export const getAnswerList = question_id => {
+
   return testDB
     .collection("answerList")
     .where({
@@ -8,6 +10,6 @@ export const getAnswerList= question_id => {
     })
     .get()
     .then(res => {
-      return get(res,'data.0',{});
+      return get(res, "data.0", {});
     });
 };
