@@ -44,7 +44,6 @@ class App extends Taro.Component {
       "pages/question/question",
       "pages/index/index",
       "pages/answer/answer",
-    
       "pages/discovery/discovery",
       "pages/notify/notify",
       "pages/chat/chat",

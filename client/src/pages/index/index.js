@@ -9,8 +9,8 @@ import { makeCounter } from "../../selects/count";
 import Search from "../../components/Search/index";
 import IndexAnswerInfo from "../../components/indexAnswerInfo/index";
 import AnswerAction from "../../components/answerActions/index";
-import AnswerQuestionContent from '../../components/answerQuestionContent/index'
-import QuestionName from '../../components/questionName/index'
+import AnswerQuestionContent from "../../components/answerQuestionContent/index";
+import QuestionName from "../../components/questionName/index";
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
@@ -44,7 +44,7 @@ class Toggle extends Component {
       url: `../answer/answer?answer_id=${answer_id}`
     });
   };
-  bindQueTap = (question_id) => {
+  bindQueTap = question_id => {
     Taro.navigateTo({
       url: `../question/question?question_id=${question_id}`
     });
@@ -107,8 +107,20 @@ class Toggle extends Component {
                             answer_id={answer_id}
                           />
                           <AnswerAction
-                            good_num={good_num}
-                            comment_num={comment_num}
+                            texts={[
+                              {
+                                text: good_num + "赞同",
+                                showDot: true
+                              },
+                              {
+                                text: comment_num + "评论",
+                                showDot: true
+                              },
+                              {
+                                text: "关注问题",
+                                showDot: false
+                              }
+                            ]}
                             bindItemTap={this.bindItemTap}
                           />
                         </View>

@@ -5,7 +5,7 @@ import { View } from "@tarojs/components";
 import styles from "./index.module.scss";
 class AnswerAction extends Component {
   render() {
-    const { bindItemTap, good_num, comment_num } = this.props;
+    const { bindItemTap, good_num, comment_num, texts } = this.props;
     const viewCls = classnames({
       [styles["dot"]]: true,
       [styles["view"]]: true
@@ -15,17 +15,16 @@ class AnswerAction extends Component {
     });
     return (
       <View className={wrapCls} onClick={bindItemTap}>
-        <View className={viewCls}>
-          <A>{good_num + " 赞同"}</A>
-          <View></View>
-        </View>
-        <View className={viewCls}>
-          <A>{comment_num + " 评论"}</A>
-          <View></View>
-        </View>
-        <View className={viewCls}>
-          <A>关注问题</A>
-        </View>
+        {texts &&
+          texts.map(item => {
+            const { text, showDot } = item;
+            return (
+              <View key={item} className={viewCls}>
+                <A>{text}</A>
+                {showDot && <View />}
+              </View>
+            );
+          })}
       </View>
     );
   }

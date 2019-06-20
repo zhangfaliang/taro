@@ -12,6 +12,9 @@ import {
   QuestionLabel
 } from "../../components/queFollow";
 import { AnswerTodo, AnswerTodoWrap } from "../../components/answerTodo";
+import AnswerAction from "../../components/answerActions";
+import IndexAnswerInfo from "../../components/indexAnswerInfo/index";
+import AnswerQuestionContent from "../../components/answerQuestionContent/index";
 
 import Buttons from "../../components/button/index";
 //answer.js
@@ -57,14 +60,49 @@ class Question extends Taro.Component {
       user_label: "WEB前端*不靠谱天气预报员*想做代码小仙女",
       watch_num: 3316,
       comment_num: 27,
-      answerInfo: {
-        answer_name: "Rebecca",
-        answer_txt:
-          "难道不明白纸质书更贵啊！！！若觉得kindle更贵，我觉得要么阅读量太少，那确实没有买kindle的必要。要么买的都是盗版的纸质书？我不清楚不加以评论。。。 另外，用kindle看小说的...",
-        like_num: "3.9K ",
-        comments_num: "254 ",
-        time: "2 "
-      }
+      answer_name: "Rebecca",
+      answerInfo: [
+        {
+          answer_name: "Rebecca",
+          answer_id: 3,
+          answer_txt:
+            "难道不明白纸质书更贵啊！！！若觉得kindle更贵，我觉得要么阅读量太少，那确实没有买kindle的必要。要么买的都是盗版的纸质书？我不清楚不加以评论。。。 另外，用kindle看小说的...",
+          texts: [
+            {
+              text: "34",
+              showDot: true
+            },
+            {
+              text: "514",
+              showDot: true
+            },
+            {
+              text: "2个月前",
+              showDot: false
+            }
+          ]
+        },
+        {
+          answer_name: "Rebecca",
+          answer_id: 3,
+          answer_txt:
+            "难道不明白纸质书更贵啊！！！若觉得kindle更贵，我觉得要么阅读量太少，那确实没有买kindle的必要。要么买的都是盗版的纸质书？我不清楚不加以评论。。。 另外，用kindle看小说的...",
+          texts: [
+            {
+              text: "34",
+              showDot: true
+            },
+            {
+              text: "514",
+              showDot: true
+            },
+            {
+              text: "2个月前",
+              showDot: false
+            }
+          ]
+        }
+      ]
     };
     return (
       <View className="container">
@@ -98,198 +136,35 @@ class Question extends Taro.Component {
             />
           </AnswerTodoWrap>
           <View className="answer-feed">
-            <View onClick={this.bindItemTap} className="feed-item">
-              <View className="feed-source">
-                <A className bindTap>
-                  <View className="avatar">
-                    <Image src={require("../../images/icon1.jpeg")} />
-                  </View>
-                  <Text>Rebecca</Text>
-                </A>
-              </View>
-              <View className="feed-content">
-                <View className="answer-body">
-                  <View>
-                    <Text className="answer-txt">
-                      难道不明白纸质书更贵啊！！！
-                      若觉得kindle更贵，我觉得要么阅读量太少，那确实没有买kindle的必要。要么买的都是盗版的纸质书？我不清楚不加以评论。。。
-                      另外，用kindle看小说的...
-                    </Text>
-                  </View>
-                  <View className="answer-actions">
-                    <View className="like dot">
-                      <A>3.9K 赞同</A>
-                    </View>
-                    <View className="comments dot">
-                      <A>254 评论</A>
-                    </View>
-                    <View className="time">
-                      <A>2 个月前</A>
+            {data.answerInfo &&
+              data.answerInfo.map((item, idx) => {
+                const { answer_name, answer_txt, texts } = item;
+                return (
+                  <View onClick={this.bindItemTap} className="feed-item">
+                    <IndexAnswerInfo
+                      feed_source_img={require("../../images/icon1.jpeg")}
+                      feed_source_name={answer_name}
+                      feed_source_txt={""}
+                    />
+
+                    <View className="feed-content">
+                      <View className="answer-body">
+                        <View>
+                          <AnswerQuestionContent
+                            bindItemTap={this.bindItemTap}
+                            answer_ctnt={answer_txt}
+                            answer_id={1}
+                          />
+                          <View>
+                            <Text className="answer-txt" />
+                          </View>
+                          <AnswerAction texts={texts} />
+                        </View>
+                      </View>
                     </View>
                   </View>
-                </View>
-              </View>
-            </View>
-            <View onClick={this.bindItemTap} className="feed-item">
-              <View className="feed-source">
-                <A className bindTap>
-                  <View className="avatar">
-                    <Image src={require("../../images/icon1.jpeg")} />
-                  </View>
-                  <Text>Rebecca</Text>
-                </A>
-              </View>
-              <View className="feed-content">
-                <View className="answer-body">
-                  <View>
-                    <Text className="answer-txt">
-                      难道不明白纸质书更贵啊！！！
-                      若觉得kindle更贵，我觉得要么阅读量太少，那确实没有买kindle的必要。要么买的都是盗版的纸质书？我不清楚不加以评论。。。
-                      另外，用kindle看小说的...
-                    </Text>
-                  </View>
-                  <View className="answer-actions">
-                    <View className="like dot">
-                      <A>3.9K 赞同</A>
-                    </View>
-                    <View className="comments dot">
-                      <A>254 评论</A>
-                    </View>
-                    <View className="time">
-                      <A>2 个月前</A>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-            <View onClick={this.bindItemTap} className="feed-item">
-              <View className="feed-source">
-                <A className bindTap>
-                  <View className="avatar">
-                    <Image src={require("../../images/icon1.jpeg")} />
-                  </View>
-                  <Text>Rebecca</Text>
-                </A>
-              </View>
-              <View className="feed-content">
-                <View className="answer-body">
-                  <View>
-                    <Text className="answer-txt">
-                      难道不明白纸质书更贵啊！！！
-                      若觉得kindle更贵，我觉得要么阅读量太少，那确实没有买kindle的必要。要么买的都是盗版的纸质书？我不清楚不加以评论。。。
-                      另外，用kindle看小说的...
-                    </Text>
-                  </View>
-                  <View className="answer-actions">
-                    <View className="like dot">
-                      <A>3.9K 赞同</A>
-                    </View>
-                    <View className="comments dot">
-                      <A>254 评论</A>
-                    </View>
-                    <View className="time">
-                      <A>2 个月前</A>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-            <View onClick={this.bindItemTap} className="feed-item">
-              <View className="feed-source">
-                <A className bindTap>
-                  <View className="avatar">
-                    <Image src={require("../../images/icon1.jpeg")} />
-                  </View>
-                  <Text>Rebecca</Text>
-                </A>
-              </View>
-              <View className="feed-content">
-                <View className="answer-body">
-                  <View>
-                    <Text className="answer-txt">
-                      难道不明白纸质书更贵啊！！！
-                      若觉得kindle更贵，我觉得要么阅读量太少，那确实没有买kindle的必要。要么买的都是盗版的纸质书？我不清楚不加以评论。。。
-                      另外，用kindle看小说的...
-                    </Text>
-                  </View>
-                  <View className="answer-actions">
-                    <View className="like dot">
-                      <A>3.9K 赞同</A>
-                    </View>
-                    <View className="comments dot">
-                      <A>254 评论</A>
-                    </View>
-                    <View className="time">
-                      <A>2 个月前</A>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-            <View onClick={this.bindItemTap} className="feed-item">
-              <View className="feed-source">
-                <A className bindTap>
-                  <View className="avatar">
-                    <Image src={require("../../images/icon1.jpeg")} />
-                  </View>
-                  <Text>Rebecca</Text>
-                </A>
-              </View>
-              <View className="feed-content">
-                <View className="answer-body">
-                  <View>
-                    <Text className="answer-txt">
-                      难道不明白纸质书更贵啊！！！
-                      若觉得kindle更贵，我觉得要么阅读量太少，那确实没有买kindle的必要。要么买的都是盗版的纸质书？我不清楚不加以评论。。。
-                      另外，用kindle看小说的...
-                    </Text>
-                  </View>
-                  <View className="answer-actions">
-                    <View className="like dot">
-                      <A>3.9K 赞同</A>
-                    </View>
-                    <View className="comments dot">
-                      <A>254 评论</A>
-                    </View>
-                    <View className="time">
-                      <A>2 个月前</A>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
-            <View onClick={this.bindItemTap} className="feed-item">
-              <View className="feed-source">
-                <A className bindTap>
-                  <View className="avatar">
-                    <Image src={require("../../images/icon1.jpeg")} />
-                  </View>
-                  <Text>Rebecca</Text>
-                </A>
-              </View>
-              <View className="feed-content">
-                <View className="answer-body">
-                  <View>
-                    <Text className="answer-txt">
-                      难道不明白纸质书更贵啊！！！
-                      若觉得kindle更贵，我觉得要么阅读量太少，那确实没有买kindle的必要。要么买的都是盗版的纸质书？我不清楚不加以评论。。。
-                      另外，用kindle看小说的...
-                    </Text>
-                  </View>
-                  <View className="answer-actions">
-                    <View className="like dot">
-                      <A>3.9K 赞同</A>
-                    </View>
-                    <View className="comments dot">
-                      <A>254 评论</A>
-                    </View>
-                    <View className="time">
-                      <A>2 个月前</A>
-                    </View>
-                  </View>
-                </View>
-              </View>
-            </View>
+                );
+              })}
           </View>
         </View>
       </View>
