@@ -32,7 +32,7 @@ class Toggle extends Component {
     super(props);
     this.state = {
       openLayer: false,
-      imageUrl: ""
+      large: {}
     };
   }
   upper = () => {
@@ -53,16 +53,16 @@ class Toggle extends Component {
     //   url: `../question/question?question_id=${question_id}`
     // });
   };
-  handleImgClick = imageUrl => {
+  handleImgClick = large => {
     this.setState({
       openLayer: true,
-      imageUrl
+      large
     });
   };
   handleClose = () => {
     this.setState({
       openLayer: false,
-      imageUrl: ""
+      large: {}
     });
   };
 

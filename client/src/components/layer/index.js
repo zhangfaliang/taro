@@ -1,5 +1,6 @@
 import Taro, { Component } from "@tarojs/taro";
 import classnames from "classnames";
+import { get } from "lodash";
 import { View, Text } from "@tarojs/components";
 import styles from "./index.module.scss";
 class Layer extends Component {
@@ -7,18 +8,25 @@ class Layer extends Component {
     super(props);
   }
   handleClose = () => {
-    const { handleClose, imageUrl } = this.props;
-    handleClose && handleClose(imageUrl);
+    const { handleClose, large } = this.props;
+    handleClose && handleClose();
   };
   render() {
-    const { openLayer, imageUrl } = this.props;
+    const { openLayer, large } = this.props;
+    const geo = get(large, "geo", {});
     const layerCls = classnames({
       [styles["layer"]]: true,
       [styles["close"]]: !openLayer
     });
     return (
       <View className={layerCls} onClick={this.handleClose}>
-        <Image className={styles["image"]} src={imageUrl} />
+        <Image
+          style={{
+            height: `${get(geo, "height")}rpx`,
+            width: `${get(geo, "width")}rpx`
+          }}
+          src={get(large, "url")}
+        />
       </View>
     );
   }
