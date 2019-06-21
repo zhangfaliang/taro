@@ -8,6 +8,7 @@ import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
+import Layer from "../../components/layer";
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
@@ -15,7 +16,7 @@ import ImageWrap from "../../components/images";
     counter: makeCounter
   }),
   dispatch => ({
-    asyncPageIndexGetData: (pageNum) => {
+    asyncPageIndexGetData: pageNum => {
       dispatch(getData(pageNum));
     },
     getDataUpper(pageNum) {
@@ -29,6 +30,10 @@ import ImageWrap from "../../components/images";
 class Toggle extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      openLayer: false,
+      imageUrl: ""
+    };
   }
   upper = () => {
     this.props.getDataUpper(0);
@@ -47,6 +52,18 @@ class Toggle extends Component {
     // Taro.navigateTo({
     //   url: `../question/question?question_id=${question_id}`
     // });
+  };
+  handleImgClick = imageUrl => {
+    this.setState({
+      openLayer: true,
+      imageUrl
+    });
+  };
+  handleClose = () => {
+    this.setState({
+      openLayer: false,
+      imageUrl: ""
+    });
   };
 
   componentWillMount() {
@@ -91,7 +108,11 @@ class Toggle extends Component {
                         />
 
                         <View className="answer-body">
-                          <ImageWrap imageUrl={original_pic} />
+                          <ImageWrap
+                            handleImgClick={this.handleImgClick}
+                            imageUrl={bmiddle_pic}
+                            bigImgUrl={original_pic}
+                          />
                         </View>
                       </View>
                     </View>
@@ -100,6 +121,7 @@ class Toggle extends Component {
               })}
           </View>
         </ScrollView>
+        <Layer {...this.state} handleClose={this.handleClose} />
       </View>
     );
   }
