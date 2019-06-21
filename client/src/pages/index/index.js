@@ -6,10 +6,6 @@ import "./index.scss";
 import { getData, getDataUpper, getDataLower } from "../../actions/index";
 import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
-import Search from "../../components/Search/index";
-import IndexAnswerInfo from "../../components/indexAnswerInfo/index";
-import AnswerAction from "../../components/answerActions/index";
-import AnswerQuestionContent from "../../components/answerQuestionContent/index";
 import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
 @connect(
@@ -19,14 +15,14 @@ import ImageWrap from "../../components/images";
     counter: makeCounter
   }),
   dispatch => ({
-    asyncPageIndexGetData: () => {
-      dispatch(getData());
+    asyncPageIndexGetData: (pageNum) => {
+      dispatch(getData(pageNum));
     },
-    getDataUpper() {
-      dispatch(getDataUpper());
+    getDataUpper(pageNum) {
+      dispatch(getDataUpper(pageNum));
     },
-    getDataLower() {
-      dispatch(getDataLower());
+    getDataLower(pageNum) {
+      dispatch(getDataLower(pageNum));
     }
   })
 )
@@ -35,10 +31,12 @@ class Toggle extends Component {
     super(props);
   }
   upper = () => {
-    this.props.getDataUpper();
+    this.props.getDataUpper(0);
   };
   lower = e => {
-    this.props.getDataLower();
+    const { feedData } = this.props;
+    const { feed_length } = feedData;
+    this.props.getDataLower(feed_length / 20);
   };
   bindItemTap = answer_id => {
     Taro.navigateTo({
@@ -52,7 +50,7 @@ class Toggle extends Component {
   };
 
   componentWillMount() {
-    this.props.asyncPageIndexGetData();
+    this.props.asyncPageIndexGetData(0);
   }
   render() {
     const { feedData } = this.props;
@@ -61,7 +59,7 @@ class Toggle extends Component {
 
     return (
       <View>
-        <Search />
+        {/* <Search /> */}
         <ScrollView
           scrollY="true"
           className="container"
@@ -85,12 +83,6 @@ class Toggle extends Component {
                 return (
                   <Block data-idx={idx}>
                     <View className="feed-item">
-                      {/* <IndexAnswerInfo
-                        feed_source_img={feed_source_img}
-                        feed_source_name={feed_source_name}
-                        feed_source_txt={feed_source_txt}
-                      /> */}
-
                       <View className="feed-content">
                         <QuestionName
                           question_id={_id}
@@ -100,24 +92,6 @@ class Toggle extends Component {
 
                         <View className="answer-body">
                           <ImageWrap imageUrl={original_pic} />
-
-                          <AnswerAction
-                            texts={[
-                              {
-                                text: "赞同",
-                                showDot: true
-                              },
-                              {
-                                text: "评论",
-                                showDot: true
-                              },
-                              {
-                                text: "关注问题",
-                                showDot: false
-                              }
-                            ]}
-                            bindItemTap={this.bindItemTap}
-                          />
                         </View>
                       </View>
                     </View>

@@ -4,12 +4,14 @@ import {
     PAGE_INDEX_GET,
     PAGE_INDEX_SET,
     PAGE_INDEX_UPPER,
-    PAGE_INDEX_LOWER
+    PAGE_INDEX_LOWER,
+    PAGE_INDEX_CLEAR
   } from '../constants/index.js'
   
-  export const getData = () => {
+  export const getData = (pageNum) => {
     return {
-      type: PAGE_INDEX_GET
+      type: PAGE_INDEX_GET,
+      pageNum
     }
   }
   export const setData = (data) => {
@@ -18,15 +20,23 @@ import {
       data
     }
   }
-  export const getDataUpper = () => {
+  export const getDataUpper = (pageNum) => {
     return {
-      type: PAGE_INDEX_UPPER
+      type: PAGE_INDEX_UPPER,
+      pageNum
     }
   }
 
-  export const getDataLower = () => {
+  export const getDataLower = (pageNum) => {
     return {
-      type: PAGE_INDEX_LOWER
+      type: PAGE_INDEX_LOWER,
+      pageNum
+    }
+  }
+
+  export const clearData = () => {
+    return {
+      type: PAGE_INDEX_CLEAR,
     }
   }
 
