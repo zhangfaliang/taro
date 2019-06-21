@@ -1,6 +1,6 @@
 import { connect } from "@tarojs/redux";
 import { createStructuredSelector } from "reselect";
-import { Block, ScrollView, View, Image, Text } from "@tarojs/components";
+import { Block, ScrollView, View, Swiper, SwiperItem } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
 import "./index.scss";
 import { getData, getDataUpper, getDataLower } from "../../actions/index";
@@ -13,7 +13,18 @@ import AnswerQuestionContent from "../../components/answerQuestionContent/index"
 import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
 import Layer from '../../components/layer'
-
+const unitIds = [
+  "adunit-5b52c23dc48e67d0",
+  "adunit-f82e6a9a31001447",
+  "adunit-75627d57477ad83a",
+  "adunit-67b6b05a19f6019d",
+  "adunit-4856a5023651b5fb",
+  "adunit-4354cb870f22b96c",
+  "adunit-71c20c574a7c1c9a",
+  "adunit-6974905e183638a5",
+  "adunit-83554f94033c767b",
+  "adunit-6c6b7749174508fa"
+];
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
@@ -78,6 +89,19 @@ class Toggle extends Component {
     return (
       <View>
         {/* <Search /> */}
+        <Swiper
+          className='test-w'
+          indicatorColor='#999'
+          indicatorActiveColor='#333'
+          circular
+          indicatorDots={false}
+          interval={3000}
+          autoplay>
+          {unitIds.map(item => (<SwiperItem>
+            <ad unit-id={item}></ad>
+          </SwiperItem>))}
+        </Swiper>
+
         <ScrollView
           scrollY="true"
           className="container"
@@ -116,24 +140,6 @@ class Toggle extends Component {
 
                         <View className="answer-body">
                           <ImageWrap imageUrl={original_pic} handelImgClik={this.handelImgClik} />
-
-                          {/* <AnswerAction
-                            texts={[
-                              {
-                                text: "赞同",
-                                showDot: true
-                              },
-                              {
-                                text: "评论",
-                                showDot: true
-                              },
-                              {
-                                text: "关注问题",
-                                showDot: false
-                              }
-                            ]} 
-                            // bindItemTap={this.bindItemTap}
-                          />*/}
                         </View>
                       </View>
                     </View>
