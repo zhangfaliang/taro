@@ -95,6 +95,7 @@ class Toggle extends Component {
                   bmiddle_pic,
                   original_pic,
                   thumbnail_pic,
+                  pics,
                   _id
                 } = item;
                 return (
@@ -109,6 +110,7 @@ class Toggle extends Component {
 
                         <View className="answer-body">
                           <ImageWrap
+                            pics={pics}
                             handleImgClick={this.handleImgClick}
                             imageUrl={bmiddle_pic}
                             bigImgUrl={original_pic}

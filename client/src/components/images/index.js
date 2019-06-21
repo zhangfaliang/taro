@@ -8,16 +8,27 @@ class ImageWrap extends Component {
     handleImgClick && handleImgClick(bigImgUrl);
   };
   render() {
-    const { imageUrl, bigImgUrl } = this.props;
+    const { imageUrl, bigImgUrl, pics } = this.props;
     const todoCls = classnames({
       [styles["imageWrap"]]: true
     });
+
+    console.log(Taro, "======================");
     return (
       <View className={todoCls}>
-        <Image
-          src={imageUrl}
-          onClick={this.handleImgClick.bind(this, bigImgUrl)}
-        />
+        {pics &&
+          pics.map(pic => {
+            const { geo, large, url, pid } = pic;
+            const { height, width } = geo;
+            return (
+              <Image
+                key={pid}
+                style={{ height: `${height}rpx`, width: `${width}rpx` }}
+                src={url}
+                onClick={this.handleImgClick.bind(this, large)}
+              />
+            );
+          })}
       </View>
     );
   }

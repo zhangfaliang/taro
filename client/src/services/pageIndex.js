@@ -2,7 +2,6 @@ import Taro from "@tarojs/taro";
 import { testDB } from "../app";
 
 export const getPageIndexDate = pageNum => {
-  console.log(pageNum,'===========================')
   return testDB
     .collection("indexList")
     .skip(pageNum * 20) // 跳过结果集中的前 10 条，从第 11 条开始返回

@@ -12,7 +12,6 @@ class Layer extends Component {
   };
   render() {
     const { openLayer, imageUrl } = this.props;
-    console.log(openLayer,'===-----====-----===---===')
     const layerCls = classnames({
       [styles["layer"]]: true,
       [styles["close"]]: !openLayer

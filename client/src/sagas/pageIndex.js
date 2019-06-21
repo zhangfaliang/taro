@@ -41,15 +41,16 @@ function* fetchLower(action) {
     Taro.showToast({
       title: "加载中",
       icon: "loading",
-      duration: 1000
+      // duration: 1000
     });
     const data = yield call(getPageIndexDate, pageNum);
     console.log("continueload");
     Taro.showToast({
       title: "加载成功",
       icon: "success",
-      duration: 1000
+      // duration: 1000
     });
+    Taro.hideNavigationBarLoading();
     yield put({ type: PAGE_INDEX_SET, data });
   } catch (e) {
     // yield put({ type: PAGE_INDEX_SET, message: e.message });

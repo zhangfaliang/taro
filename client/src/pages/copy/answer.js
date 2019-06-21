@@ -37,7 +37,6 @@ class Answer extends Component {
 
   render() {
     const data = get(this.props,'answerDetail',{});
-    console.log(data,'==================')
     return (
       <View className="container">
         {/* <View className="question" onClick={this.toQuestion}>
