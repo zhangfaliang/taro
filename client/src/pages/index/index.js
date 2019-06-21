@@ -66,12 +66,6 @@ class Toggle extends Component {
     });
   };
 
-  handleClose = () => {
-    this.setState({
-      isOpenLayer: false,
-
-    })
-  }
   componentWillMount() {
     this.props.asyncPageIndexGetData(0);
   }

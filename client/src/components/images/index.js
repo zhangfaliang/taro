@@ -13,7 +13,6 @@ class ImageWrap extends Component {
       [styles["imageWrap"]]: true
     });
 
-    console.log(Taro, "======================");
     return (
       <View className={todoCls}>
         {pics &&
