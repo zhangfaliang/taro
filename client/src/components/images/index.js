@@ -22,7 +22,7 @@ class ImageWrap extends Component {
             return (
               <Image
                 key={pid}
-                style={{ height: `${height}rpx`, width: `${width}rpx` }}
+                style={{ height:`${height> 400 ? 400 : height}rpx`, width: `${width}rpx` }}
                 src={url}
                 onClick={this.handleImgClick.bind(this, large)}
               />
