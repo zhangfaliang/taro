@@ -1,6 +1,6 @@
 import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
 import Taro from "@tarojs/taro";
-
+import { clearData } from "../actions/index";
 import { getPageIndexDate } from "../services/pageIndex";
 import {
   PAGE_INDEX_GET,
@@ -11,7 +11,8 @@ import {
 // worker Saga : 将在 PAGE_INDEX_SET action 被 dispatch 时调用
 function* fetchData(action) {
   try {
-    const data = yield call(getPageIndexDate);
+    const { pageNum } = action;
+    const data = yield call(getPageIndexDate, pageNum);
     yield put({ type: PAGE_INDEX_SET, data });
   } catch (e) {
     // yield put({ type: PAGE_INDEX_SET, message: e.message });
@@ -21,8 +22,10 @@ function* fetchData(action) {
 // worker Saga : 将在 PAGE_INDEX_SET action 被 dispatch 时调用
 function* fetchUpdate(action) {
   try {
+    yield put(clearData());
+    const { pageNum } = action;
     Taro.showNavigationBarLoading();
-    const data = yield call(getPageIndexDate);
+    const data = yield call(getPageIndexDate, pageNum);
     Taro.hideNavigationBarLoading();
     Taro.stopPullDownRefresh();
     yield put({ type: PAGE_INDEX_SET, data });
@@ -33,19 +36,21 @@ function* fetchUpdate(action) {
 // worker Saga : 将在 PAGE_INDEX_SET action 被 dispatch 时调用
 function* fetchLower(action) {
   try {
+    const { pageNum } = action;
     Taro.showNavigationBarLoading();
     Taro.showToast({
       title: "加载中",
       icon: "loading",
-      duration: 1000
+      // duration: 1000
     });
-    const data = yield call(getPageIndexDate);
+    const data = yield call(getPageIndexDate, pageNum);
     console.log("continueload");
     Taro.showToast({
       title: "加载成功",
       icon: "success",
-      duration: 1000
+      // duration: 1000
     });
+    Taro.hideNavigationBarLoading();
     yield put({ type: PAGE_INDEX_SET, data });
   } catch (e) {
     // yield put({ type: PAGE_INDEX_SET, message: e.message });

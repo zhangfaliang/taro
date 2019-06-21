@@ -6,25 +6,9 @@ import "./index.scss";
 import { getData, getDataUpper, getDataLower } from "../../actions/index";
 import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
-import Search from "../../components/Search/index";
-import IndexAnswerInfo from "../../components/indexAnswerInfo/index";
-import AnswerAction from "../../components/answerActions/index";
-import AnswerQuestionContent from "../../components/answerQuestionContent/index";
 import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
-import Layer from '../../components/layer'
-const unitIds = [
-  "adunit-5b52c23dc48e67d0",
-  "adunit-f82e6a9a31001447",
-  "adunit-75627d57477ad83a",
-  "adunit-67b6b05a19f6019d",
-  "adunit-4856a5023651b5fb",
-  "adunit-4354cb870f22b96c",
-  "adunit-71c20c574a7c1c9a",
-  "adunit-6974905e183638a5",
-  "adunit-83554f94033c767b",
-  "adunit-6c6b7749174508fa"
-];
+import Layer from "../../components/layer";
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
@@ -32,14 +16,14 @@ const unitIds = [
     counter: makeCounter
   }),
   dispatch => ({
-    asyncPageIndexGetData: () => {
-      dispatch(getData());
+    asyncPageIndexGetData: pageNum => {
+      dispatch(getData(pageNum));
     },
-    getDataUpper() {
-      dispatch(getDataUpper());
+    getDataUpper(pageNum) {
+      dispatch(getDataUpper(pageNum));
     },
-    getDataLower() {
-      dispatch(getDataLower());
+    getDataLower(pageNum) {
+      dispatch(getDataLower(pageNum));
     }
   })
 )
@@ -47,15 +31,17 @@ class Toggle extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      isOpenLayer: false,
-      imageUrl: ''
-    }
+      openLayer: false,
+      large: {}
+    };
   }
   upper = () => {
-    this.props.getDataUpper();
+    this.props.getDataUpper(0);
   };
   lower = e => {
-    this.props.getDataLower();
+    const { feedData } = this.props;
+    const { feed_length } = feedData;
+    this.props.getDataLower(feed_length / 20);
   };
   bindItemTap = answer_id => {
     Taro.navigateTo({
@@ -67,12 +53,18 @@ class Toggle extends Component {
     //   url: `../question/question?question_id=${question_id}`
     // });
   };
-  handelImgClik = (imageUrl) => {
+  handleImgClick = large => {
     this.setState({
-      isOpenLayer: true,
-      imageUrl
-    })
-  }
+      openLayer: true,
+      large
+    });
+  };
+  handleClose = () => {
+    this.setState({
+      openLayer: false,
+      large: {}
+    });
+  };
 
   handleClose = () => {
     this.setState({
@@ -81,7 +73,7 @@ class Toggle extends Component {
     })
   }
   componentWillMount() {
-    this.props.asyncPageIndexGetData();
+    this.props.asyncPageIndexGetData(0);
   }
   render() {
     const { feedData } = this.props;
@@ -89,19 +81,6 @@ class Toggle extends Component {
     return (
       <View>
         {/* <Search /> */}
-        <Swiper
-          className='test-w'
-          indicatorColor='#999'
-          indicatorActiveColor='#333'
-          circular
-          indicatorDots={false}
-          interval={3000}
-          autoplay>
-          {unitIds.map(item => (<SwiperItem>
-            <ad unit-id={item}></ad>
-          </SwiperItem>))}
-        </Swiper>
-
         <ScrollView
           scrollY="true"
           className="container"
@@ -120,17 +99,12 @@ class Toggle extends Component {
                   bmiddle_pic,
                   original_pic,
                   thumbnail_pic,
+                  pics,
                   _id
                 } = item;
                 return (
                   <Block data-idx={idx}>
                     <View className="feed-item">
-                      {/* <IndexAnswerInfo
-                        feed_source_img={feed_source_img}
-                        feed_source_name={feed_source_name}
-                        feed_source_txt={feed_source_txt}
-                      /> */}
-
                       <View className="feed-content">
                         <QuestionName
                           question_id={_id}
@@ -139,7 +113,12 @@ class Toggle extends Component {
                         />
 
                         <View className="answer-body">
-                          <ImageWrap imageUrl={original_pic} handelImgClik={this.handelImgClik} />
+                          <ImageWrap
+                            pics={pics}
+                            handleImgClick={this.handleImgClick}
+                            imageUrl={bmiddle_pic}
+                            bigImgUrl={original_pic}
+                          />
                         </View>
                       </View>
                     </View>
@@ -148,7 +127,7 @@ class Toggle extends Component {
               })}
           </View>
         </ScrollView>
-        <Layer handleClose={this.handleClose} isOpen={this.state.isOpenLayer} imageUrl={this.state.imageUrl} />
+        <Layer {...this.state} handleClose={this.handleClose} />
       </View>
     );
   }

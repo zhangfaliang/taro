@@ -1,5 +1,8 @@
-.imageWrap{
-    max-width: 300px;
-    display: flex;
+.imageWrap {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: flex-start;
 
 }
