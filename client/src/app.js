@@ -4,9 +4,9 @@ import Taro from "@tarojs/taro";
 import configStore from "./store";
 import "./app.scss";
 import Index from "./pages/copy/index";
-
+//  env: "chiji-test-3e054b"
 Taro.cloud.init({
-  env: "chiji-test-3e054b"
+  env: "chiji-test-jjp6p"
 });
 export const testDB = Taro.cloud.database();
 const store = configStore();
