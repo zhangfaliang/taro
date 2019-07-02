@@ -3,9 +3,9 @@ import classnames from "classnames";
 import { View, Text, Image } from "@tarojs/components";
 import styles from "./index.module.scss";
 class ImageWrap extends Component {
-  handleImgClick = bigImgUrl => {
+  handleImgClick = (pics, index) => {
     const { handleImgClick } = this.props;
-    handleImgClick && handleImgClick(bigImgUrl);
+    handleImgClick && handleImgClick(pics, index);
   };
   render() {
     const { imageUrl, bigImgUrl, pics } = this.props;
@@ -16,15 +16,18 @@ class ImageWrap extends Component {
     return (
       <View className={todoCls}>
         {pics &&
-          pics.map(pic => {
-            const { geo, large, url, pid } = pic;
+          pics.map((pic, index) => {
+            const { geo, url, pid } = pic;
             const { height, width } = geo;
             return (
               <Image
                 key={pid}
-                style={{ height:`${height> 400 ? 400 : height}rpx`, width: `${width}rpx` }}
+                style={{
+                  height: `${height > 300 ? 300 : height}rpx`,
+                  width: `${width > 300 ? 300 : width < 250 ? 300 : width}rpx`
+                }}
                 src={url}
-                onClick={this.handleImgClick.bind(this, large)}
+                onClick={this.handleImgClick.bind(this, pics, index)}
               />
             );
           })}

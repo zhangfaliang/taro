@@ -11,7 +11,18 @@
   align-items: center;
   overflow: auto;
 
+  .swipe {
+    height: 100%;
+    width: 100%;
+  }
+
+  .swipeItem {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
 }
+
 
 .close {
   display: none;
