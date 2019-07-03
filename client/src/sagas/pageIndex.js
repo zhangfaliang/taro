@@ -1,7 +1,12 @@
-import { call, put, takeEvery, takeLatest } from "redux-saga/effects";
+import { call, put, takeEvery, takeLatest, select } from "redux-saga/effects";
 import Taro from "@tarojs/taro";
-import { clearData } from "../actions/index";
-import { getPageIndexDate } from "../services/pageIndex";
+import { clearData, setLastPageNum } from "../actions/index";
+import { makeLastPageNum } from "../selects/pageIndex";
+import {
+  getPageIndexDate,
+  getUpdateData,
+  getIndexTotal
+} from "../services/pageIndex";
 import {
   PAGE_INDEX_GET,
   PAGE_INDEX_SET,
@@ -23,9 +28,15 @@ function* fetchData(action) {
 function* fetchUpdate(action) {
   try {
     yield put(clearData());
-    const { pageNum } = action;
+    let storeLastPageNum = yield select(makeLastPageNum);
+    if (storeLastPageNum == 0) {
+      const total = yield call(getIndexTotal);
+      storeLastPageNum = Math.floor(total / 20);
+    }
     Taro.showNavigationBarLoading();
-    const data = yield call(getPageIndexDate, pageNum);
+    const data = yield call(getPageIndexDate, lastPageNum);
+    yield put(setLastPageNum(storeLastPageNum == 0 ? 0 : storeLastPageNum - 1));
+
     Taro.hideNavigationBarLoading();
     Taro.stopPullDownRefresh();
     yield put({ type: PAGE_INDEX_SET, data });
@@ -40,14 +51,14 @@ function* fetchLower(action) {
     Taro.showNavigationBarLoading();
     Taro.showToast({
       title: "加载中",
-      icon: "loading",
+      icon: "loading"
       // duration: 1000
     });
     const data = yield call(getPageIndexDate, pageNum);
     console.log("continueload");
     Taro.showToast({
       title: "加载成功",
-      icon: "success",
+      icon: "success"
       // duration: 1000
     });
     Taro.hideNavigationBarLoading();

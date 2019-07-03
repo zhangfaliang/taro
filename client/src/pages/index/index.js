@@ -1,13 +1,8 @@
 import { connect } from "@tarojs/redux";
 import { createStructuredSelector } from "reselect";
-import {
-  Block,
-  ScrollView,
-  View,
-  Swiper,
-  SwiperItem
-} from "@tarojs/components";
+import { Block, ScrollView, View } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
+import { isEmpty } from "lodash";
 import "./index.scss";
 import {
   getData,
@@ -75,7 +70,7 @@ class Toggle extends Component {
       index
     });
     Taro.navigateTo({
-      url: `../index_detail/index`
+      url: `/pages/index_detail/index`
     });
   };
   handleClose = () => {
@@ -87,7 +82,10 @@ class Toggle extends Component {
   };
 
   componentWillMount() {
-    this.props.asyncPageIndexGetData(0);
+    const { feedData, asyncPageIndexGetData } = this.props;
+    const { feed } = feedData;
+
+    isEmpty(feed) && asyncPageIndexGetData(0);
   }
   render() {
     const { feedData } = this.props;

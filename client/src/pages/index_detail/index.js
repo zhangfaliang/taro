@@ -17,8 +17,9 @@ import Layer from "../../components/layer";
 )
 class IndexDetail extends Component {
   handleClose = () => {
-    Taro.navigateTo({
-      url: `../index/index`
+    const currentPages = Taro.getCurrentPages();
+    Taro.redirectTo({
+      url: `/pages/index/index`
     });
     this.props.onSetPageIndexDetail({
       openLayer: false,
@@ -30,7 +31,9 @@ class IndexDetail extends Component {
     const { index_detail } = this.props;
     return (
       <View>
-        <Layer {...index_detail} handleClose={this.handleClose} />
+        <navigator url="/pages/index/index" open-type="navigateBack">
+          <Layer {...index_detail} handleClose={this.handleClose} />
+        </navigator>
       </View>
     );
   }
