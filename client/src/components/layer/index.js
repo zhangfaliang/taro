@@ -1,7 +1,7 @@
 import Taro, { Component } from "@tarojs/taro";
 import classnames from "classnames";
 import { get } from "lodash";
-import { View, Text, Swiper, SwiperItem } from "@tarojs/components";
+import { View, Image, Swiper, SwiperItem } from "@tarojs/components";
 import styles from "./index.module.scss";
 
 class Layer extends Component {
@@ -39,7 +39,7 @@ class Layer extends Component {
                     display: "flex"
                   }}
                 >
-                  <image
+                  <Image
                     style={{
                       display: "block",
                       height: `${get(large, "geo.height")}rpx`,
