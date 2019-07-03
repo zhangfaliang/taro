@@ -34,8 +34,9 @@ function* fetchUpdate(action) {
       const { total } = yield call(getIndexTotal);
       storeLastPageNum = Math.floor(total / 20);
     }
-    const randomNum = 0 + Math.floor(Math.random() * (storeLastPageNum - 1));
-
+    let randomNum =0 + Math.floor(Math.random() * (storeLastPageNum - 1))
+  
+    console.log(randomNum,'-------------------')
     Taro.showNavigationBarLoading();
     const data = yield call(getPageIndexDate, randomNum);
 

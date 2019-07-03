@@ -17,15 +17,14 @@ import Layer from "../../components/layer";
 )
 class IndexDetail extends Component {
   handleClose = () => {
-    const currentPages = Taro.getCurrentPages();
-    Taro.redirectTo({
-      url: `/pages/index/index`
-    });
-    this.props.onSetPageIndexDetail({
-      openLayer: false,
-      pics: [],
-      index: 0
-    });
+    // const currentPages = Taro.getCurrentPages();
+    // console.log(currentPages,'-----currentPages')
+    // Taro.navigateBack({ delta: 1 })
+    // this.props.onSetPageIndexDetail({
+    //   openLayer: false,
+    //   pics: [],
+    //   index: 0
+    // });
   };
   render() {
     const { index_detail } = this.props;
