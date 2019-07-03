@@ -6,7 +6,8 @@ import {
   PAGE_INDEX_LOWER,
   PAGE_INDEX_CLEAR,
   PAGE_INDEX_DETAIL_SET,
-  API_LAST_PAGE_NUM
+  API_LAST_PAGE_NUM,
+  API_UPDATE_PAGE_NUM
 } from "../constants/index.js";
 
 export const getData = pageNum => {
@@ -45,6 +46,12 @@ export const setLastPageNum = lastPageNum => {
   return {
     type: API_LAST_PAGE_NUM,
     lastPageNum
+  };
+};
+export const setUpdatePageNum = updatePageNum => {
+  return {
+    type: API_UPDATE_PAGE_NUM,
+    updatePageNum
   };
 };
 

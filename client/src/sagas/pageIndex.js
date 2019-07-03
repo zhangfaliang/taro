@@ -28,13 +28,17 @@ function* fetchData(action) {
 function* fetchUpdate(action) {
   try {
     yield put(clearData());
-    let storeLastPageNum = yield select(makeLastPageNum);
+    let storeLastPageNum = 0;
+    storeLastPageNum = yield select(makeLastPageNum);
     if (storeLastPageNum == 0) {
-      const total = yield call(getIndexTotal);
+      const { total } = yield call(getIndexTotal);
       storeLastPageNum = Math.floor(total / 20);
     }
+    const randomNum = 0 + Math.floor(Math.random() * (storeLastPageNum - 1));
+
     Taro.showNavigationBarLoading();
-    const data = yield call(getPageIndexDate, lastPageNum);
+    const data = yield call(getPageIndexDate, randomNum);
+
     yield put(setLastPageNum(storeLastPageNum == 0 ? 0 : storeLastPageNum - 1));
 
     Taro.hideNavigationBarLoading();
