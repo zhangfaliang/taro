@@ -5,7 +5,8 @@ import {
     PAGE_INDEX_SET,
     PAGE_INDEX_UPPER,
     PAGE_INDEX_LOWER,
-    PAGE_INDEX_CLEAR
+    PAGE_INDEX_CLEAR,
+    PAGE_INDEX_DETAIL_SET
   } from '../constants/index.js'
   
   export const getData = (pageNum) => {
@@ -33,6 +34,14 @@ import {
       pageNum
     }
   }
+
+  export const setPageIndexDetail = (detailData) => {
+    return {
+      type: PAGE_INDEX_DETAIL_SET,
+      detailData
+    }
+  }
+  
 
   export const clearData = () => {
     return {

@@ -18,4 +18,11 @@ export const makeFeed = createSelector(
   }
 )
 
+export const makeDetailData = createSelector(
+  pageIndex,
+(pageIndex) => {
+   return get(pageIndex,'index_detail',{})
+}
+)
+
 

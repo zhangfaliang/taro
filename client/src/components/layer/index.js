@@ -42,8 +42,8 @@ class Layer extends Component {
                   <image
                     style={{
                       display: "block",
-                      height: `${get(large, "height")}rpx`,
-                      width: `${+get(large, "width")}rpx`
+                      height: `${get(large, "geo.height")}rpx`,
+                      width: `${+get(large, "geo.width")}rpx`
                     }}
                     src={get(large, "url")}
                   />

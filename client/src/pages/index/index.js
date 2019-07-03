@@ -1,9 +1,20 @@
 import { connect } from "@tarojs/redux";
 import { createStructuredSelector } from "reselect";
-import { Block, ScrollView, View, Swiper, SwiperItem } from "@tarojs/components";
+import {
+  Block,
+  ScrollView,
+  View,
+  Swiper,
+  SwiperItem
+} from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
 import "./index.scss";
-import { getData, getDataUpper, getDataLower } from "../../actions/index";
+import {
+  getData,
+  getDataUpper,
+  getDataLower,
+  setPageIndexDetail
+} from "../../actions/index";
 import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import QuestionName from "../../components/questionName/index";
@@ -24,6 +35,9 @@ import Layer from "../../components/layer";
     },
     getDataLower(pageNum) {
       dispatch(getDataLower(pageNum));
+    },
+    onSetPageIndexDetail: detailData => {
+      dispatch(setPageIndexDetail(detailData));
     }
   })
 )
@@ -33,7 +47,7 @@ class Toggle extends Component {
     this.state = {
       openLayer: false,
       pics: [],
-      index:0
+      index: 0
     };
   }
   upper = () => {
@@ -54,18 +68,21 @@ class Toggle extends Component {
     //   url: `../question/question?question_id=${question_id}`
     // });
   };
-  handleImgClick = (pics,index) => {
-    this.setState({
+  handleImgClick = (pics, index) => {
+    this.props.onSetPageIndexDetail({
       openLayer: true,
       pics,
       index
+    });
+    Taro.navigateTo({
+      url: `../index_detail/index`
     });
   };
   handleClose = () => {
     this.setState({
       openLayer: false,
       pics: [],
-      index:0
+      index: 0
     });
   };
 
@@ -124,7 +141,7 @@ class Toggle extends Component {
               })}
           </View>
         </ScrollView>
-        <Layer {...this.state} handleClose={this.handleClose} />
+        {/* <Layer {...this.state} handleClose={this.handleClose} /> */}
       </View>
     );
   }
