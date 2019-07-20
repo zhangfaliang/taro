@@ -30,9 +30,9 @@ class IndexDetail extends Component {
     const { index_detail } = this.props;
     return (
       <View>
-        <navigator url="/pages/index/index" open-type="navigateBack">
+        {/* <navigator url="/pages/index/index" open-type="navigateBack"> */}
           <Layer {...index_detail} handleClose={this.handleClose} />
-        </navigator>
+        {/* </navigator> */}
       </View>
     );
   }

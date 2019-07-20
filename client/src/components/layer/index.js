@@ -36,14 +36,17 @@ class Layer extends Component {
                 <SwiperItem
                   className={styles.swipeItem}
                   style={{
-                    display: "flex"
+                    display: "flex",
+                 
                   }}
                 >
                   <Image
                     style={{
                       display: "block",
                       height: `${get(large, "geo.height")}rpx`,
-                      width: `${+get(large, "geo.width")}rpx`
+                      width: `${+get(large, "geo.width")}rpx`,
+                      marginTop:"190px",
+                      marginBottom:"50px"
                     }}
                     src={get(large, "url")}
                   />

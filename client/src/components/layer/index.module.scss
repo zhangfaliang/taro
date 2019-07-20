@@ -18,6 +18,7 @@
 
   .swipeItem {
     display: flex;
+    overflow: auto;
     justify-content: center;
     align-items: center;
   }
