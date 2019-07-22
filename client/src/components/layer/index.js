@@ -39,17 +39,23 @@ class Layer extends Component {
                     display: "flex",
                  
                   }}
-                >
+                >   
+                <View
+                  style={{
+                    display: "block",
+                    overflow:"scroll",
+                    height: `100%`,
+                    width: `100%`,
+                  }} >
                   <Image
                     style={{
                       display: "block",
                       height: `${get(large, "geo.height")}rpx`,
                       width: `${+get(large, "geo.width")}rpx`,
-                      marginTop:"190px",
-                      marginBottom:"50px"
                     }}
                     src={get(large, "url")}
                   />
+                  </View>
                 </SwiperItem>
               );
             })}
