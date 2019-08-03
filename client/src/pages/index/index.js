@@ -69,7 +69,8 @@ class Toggle extends Component {
     this.props.onSetPageIndexDetail({
       openLayer: true,
       pics,
-      index
+      index,
+      isPic:true
     });
     Taro.navigateTo({
       url: `/pages/index_detail/index`
