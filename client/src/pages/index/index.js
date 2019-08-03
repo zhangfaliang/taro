@@ -102,11 +102,6 @@ class Toggle extends Component {
   render() {
     const { feedData } = this.props;
     const { feed } = feedData;
-    console.log(
-      feed.filter(item => {
-        return !isEmpty(item);
-      })
-    );
     return (
       <View>
         {/* <Search /> */}
@@ -136,7 +131,6 @@ class Toggle extends Component {
                     _id,
                     type
                   } = item;
-                  console.log(type);
                   return (
                     <Block data-idx={idx}>
                       <View className="feed-item">

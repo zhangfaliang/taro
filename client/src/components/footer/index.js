@@ -11,7 +11,6 @@ const arr = [
 ];
 class Footer extends Component {
   handleClick = text => {
-    console.log(text);
   };
   render() {
     const { answerDetail } = this.props;
