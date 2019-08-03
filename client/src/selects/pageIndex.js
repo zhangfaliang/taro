@@ -24,10 +24,29 @@ export const makeFeed = createSelector(
     };
   }
 );
-
+export const makeAdvertising = createSelector(
+  pageIndex,
+  pageIndex => {
+    const { advertising, advertisingIndexDetail } = get(
+      pageIndex,
+      "indexAdvertising.data.0",
+      {}
+    );
+    return {
+      advertising,
+      advertisingIndexDetail
+    };
+  }
+);
 export const makeDetailData = createSelector(
   pageIndex,
   pageIndex => {
     return get(pageIndex, "index_detail", {});
+  }
+);
+export const makeIndexDetailAdvertising = createSelector(
+  makeAdvertising,
+  advertising => {
+    return get(advertising, "advertisingIndexDetail");
   }
 );

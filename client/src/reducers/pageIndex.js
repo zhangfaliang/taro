@@ -18,7 +18,7 @@ export default function pageIndex(state = INITIAL_STATE, action) {
     case PAGE_INDEX_SET:
       return {
         ...state,
-        pageDate: [...state.pageDate, ...action.data.data]
+        pageDate: [...state.pageDate, ...action.data]
       };
     case PAGE_INDEX_DETAIL_SET:
       return {

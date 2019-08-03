@@ -3,11 +3,16 @@ import { createStructuredSelector } from "reselect";
 import { View } from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
 import { setPageIndexDetail } from "../../actions/index";
-import { makeDetailData } from "../../selects/pageIndex";
+import {
+  makeDetailData,
+  makeIndexDetailAdvertising
+} from "../../selects/pageIndex";
 import Layer from "../../components/layer";
+import VideoPlay from "../../components/videoComponent/video-play";
 @connect(
   createStructuredSelector({
-    index_detail: makeDetailData
+    index_detail: makeDetailData,
+    detailAdvertising: makeIndexDetailAdvertising
   }),
   dispatch => ({
     onSetPageIndexDetail: detailData => {
@@ -27,11 +32,17 @@ class IndexDetail extends Component {
     // });
   };
   render() {
-    const { index_detail } = this.props;
+    const { index_detail, detailAdvertising } = this.props;
+    const { isPic } = index_detail;
     return (
       <View>
         {/* <navigator url="/pages/index/index" open-type="navigateBack"> */}
+
+        {isPic ? (
           <Layer {...index_detail} handleClose={this.handleClose} />
+        ) : (
+          <VideoPlay {...index_detail} />
+        )}
         {/* </navigator> */}
       </View>
     );

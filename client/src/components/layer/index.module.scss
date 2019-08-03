@@ -20,6 +20,12 @@
     overflow-y:scroll;
     justify-content: center;
     align-items: center;
+    view{
+      display: flex!important;
+      overflow-y:scroll;
+      justify-content: center;
+      align-items: center;
+    }
   }
 }
 

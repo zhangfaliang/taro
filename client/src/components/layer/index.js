@@ -37,7 +37,7 @@ class Layer extends Component {
                   className={styles.swipeItem}
                   style={{
                     display: "flex",
-                 
+                    
                   }}
                 >   
                 <View

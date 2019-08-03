@@ -27,21 +27,11 @@ function* fetchData(action) {
 // worker Saga : 将在 PAGE_INDEX_SET action 被 dispatch 时调用
 function* fetchUpdate(action) {
   try {
+    const { pageNum } = action;
     yield put(clearData());
-    let storeLastPageNum = 0;
-    storeLastPageNum = yield select(makeLastPageNum);
-    if (storeLastPageNum == 0) {
-      const { total } = yield call(getIndexTotal);
-      storeLastPageNum = Math.floor(total / 20);
-    }
-    let randomNum =0 + Math.floor(Math.random() * (storeLastPageNum - 1))
   
-    console.log(randomNum,'-------------------')
     Taro.showNavigationBarLoading();
-    const data = yield call(getPageIndexDate, randomNum);
-
-    yield put(setLastPageNum(storeLastPageNum == 0 ? 0 : storeLastPageNum - 1));
-
+    const data = yield call(getPageIndexDate, pageNum);
     Taro.hideNavigationBarLoading();
     Taro.stopPullDownRefresh();
     yield put({ type: PAGE_INDEX_SET, data });
