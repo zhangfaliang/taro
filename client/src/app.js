@@ -8,6 +8,7 @@ import Index from "./pages/copy/index";
 Taro.cloud.init({
   env: "chiji-test-jjp6p"
 });
+
 export const testDB = Taro.cloud.database();
 const store = configStore();
 
