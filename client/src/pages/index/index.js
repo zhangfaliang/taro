@@ -182,10 +182,11 @@ class Toggle extends Component {
                                 bigImgUrl={original_pic}
                               />
                             ) : (
-                                <VideoComponent
-                                  videoClick={this.videoClick}
-                                  {...item}
-                                />
+                              <View></View>
+                                // <VideoComponent
+                                //   videoClick={this.videoClick}
+                                //   {...item}
+                                // />
                               )}
                           </View>
                         </View>
