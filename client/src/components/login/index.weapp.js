@@ -22,7 +22,6 @@ export default class Login extends Component {
     const todo = db.collection('todos').doc('1c4318c9-cc93-494c-adea-741d1cf1d2ef').get({
       success: function(res) {
         // res.data 包含该记录的数据
-        console.log(res.data)
       }
     })
     db.collection("todos")
@@ -37,7 +36,6 @@ export default class Login extends Component {
         }
       })
       .then(res => {
-        console.log(res);
       });
 
     Taro.cloud

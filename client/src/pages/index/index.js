@@ -1,8 +1,11 @@
 import { connect } from "@tarojs/redux";
 import { createStructuredSelector } from "reselect";
-import { Block, ScrollView, View } from "@tarojs/components";
+import {
+  Block, ScrollView, View, Swiper,
+  SwiperItem,
+} from "@tarojs/components";
 import Taro, { Component } from "@tarojs/taro";
-import { isEmpty } from "lodash";
+import { isEmpty, get } from "lodash";
 import "./index.scss";
 import {
   getData,
@@ -11,18 +14,18 @@ import {
   setPageIndexDetail,
   initPage
 } from "../../actions/index";
-import { makePageIndex, makeFeed } from "../../selects/pageIndex";
+import { makePageIndex, makeFeed, makeIndexAdvertising } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
 import QuestionName from "../../components/questionName/index";
 import ImageWrap from "../../components/images";
 import Layer from "../../components/layer";
 import VideoComponent from "../../components/videoComponent";
-
 @connect(
   createStructuredSelector({
     pageIndex: makePageIndex,
     feedData: makeFeed,
-    counter: makeCounter
+    counter: makeCounter,
+    indexAdvertising: makeIndexAdvertising
   }),
   dispatch => ({
     asyncPageIndexGetData: pageNum => {
@@ -36,7 +39,11 @@ import VideoComponent from "../../components/videoComponent";
     },
     onSetPageIndexDetail: detailData => {
       dispatch(setPageIndexDetail(detailData));
+    },
+    onInitPage: detailData => {
+      dispatch(initPage());
     }
+
   })
 )
 class Toggle extends Component {
@@ -95,18 +102,41 @@ class Toggle extends Component {
     });
   };
   componentWillMount() {
-    const { feedData, asyncPageIndexGetData, initPage } = this.props;
+    const { feedData, asyncPageIndexGetData, onInitPage } = this.props;
     const { feed } = feedData;
-    initPage();
+    onInitPage();
     isEmpty(feed) && asyncPageIndexGetData(0);
   }
   render() {
-    const { feedData } = this.props;
+    const { feedData, indexAdvertising } = this.props;
     const { feed } = feedData;
-    console.log(this.props);
     return (
-      <View>
-        {/* <Search /> */}
+      <View className='wrap' >
+        <View className='swiper'>
+          <Swiper
+            autoplay={true}
+            interval={3000}
+            duration={200}
+          >
+            {indexAdvertising && indexAdvertising.map(item => {
+              return (
+                <SwiperItem>
+                  {get(item, "ad-type") ? (
+                    <ad
+                      class="ad"
+                      unit-id={get(item, "id")}
+                      ad-type={get(item, "ad-type")}
+                      ad-theme={get(item, "ad-theme")}
+                    />
+                  ) : (
+                      <ad unit-id={get(item, "id")}></ad>
+                    )}
+                </SwiperItem>
+              );
+            })}
+          </Swiper>
+        </View>
+
         <ScrollView
           scrollY="true"
           className="container"
@@ -152,11 +182,11 @@ class Toggle extends Component {
                                 bigImgUrl={original_pic}
                               />
                             ) : (
-                              <VideoComponent
-                                videoClick={this.videoClick}
-                                {...item}
-                              />
-                            )}
+                                <VideoComponent
+                                  videoClick={this.videoClick}
+                                  {...item}
+                                />
+                              )}
                           </View>
                         </View>
                       </View>

@@ -1,4 +1,5 @@
 import { call, put, takeEvery, takeLatest, select } from "redux-saga/effects";
+import {get } from 'lodash'
 import Taro from "@tarojs/taro";
 import { clearData, setLastPageNum } from "../actions/index";
 import { makeLastPageNum } from "../selects/pageIndex";
@@ -17,7 +18,7 @@ import {
 
 } from "../constants/index";
 function* initPage() {
-  console.log('0000000000000000')
+
   // const data = yield call(getConfig);
   const indexAdvertising = yield call(getIndexAdvertising);  
   const advertisings = get(indexAdvertising, "data.0", {});

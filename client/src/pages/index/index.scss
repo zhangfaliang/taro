@@ -1,4 +1,15 @@
 /**index.wxss**/
+.wrap{
+  padding-top: 300px;
+  position: relative;
+  width: 100%;
+  .swiper{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+  }
+}
 
 .container{
   height: 1500px;

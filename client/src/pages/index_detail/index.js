@@ -22,14 +22,7 @@ import VideoPlay from "../../components/videoComponent/video-play";
 )
 class IndexDetail extends Component {
   handleClose = () => {
-    // const currentPages = Taro.getCurrentPages();
-    // console.log(currentPages,'-----currentPages')
-    // Taro.navigateBack({ delta: 1 })
-    // this.props.onSetPageIndexDetail({
-    //   openLayer: false,
-    //   pics: [],
-    //   index: 0
-    // });
+
   };
   render() {
     const { index_detail, detailAdvertising } = this.props;

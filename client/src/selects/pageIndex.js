@@ -29,13 +29,19 @@ export const makeAdvertising = createSelector(
   pageIndex => {
     const { advertising, advertisingIndexDetail } = get(
       pageIndex,
-      "indexAdvertising.data.0",
+      "indexAdvertising",
       {}
     );
     return {
       advertising,
       advertisingIndexDetail
     };
+  }
+);
+export const makeIndexAdvertising = createSelector(
+  makeAdvertising,
+  advertising => {
+    return get(advertising, "advertising");
   }
 );
 export const makeDetailData = createSelector(

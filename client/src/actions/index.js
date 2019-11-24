@@ -7,7 +7,8 @@ import {
   PAGE_INDEX_CLEAR,
   PAGE_INDEX_DETAIL_SET,
   API_LAST_PAGE_NUM,
-  API_UPDATE_PAGE_NUM
+  API_UPDATE_PAGE_NUM,
+  INIT_PAGE
 } from "../constants/index.js";
 
 export const getData = pageNum => {

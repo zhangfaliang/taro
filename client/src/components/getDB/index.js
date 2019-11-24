@@ -21,7 +21,6 @@ export default class Login extends Component {
     // const todos = db.collection('todos'
     db.collection('todos').doc('57896b495cf5d2240b45a61b0c2bb536').get().then(res => {
       // res.data 包含该记录的数据
-      console.log(res.data)
     })
     
 

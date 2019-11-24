@@ -1,7 +1,7 @@
 import Taro from "@tarojs/taro";
 import { get } from "lodash";
 import { testDB } from "../app";
-import { processRes, replaceReg } from "../utils/processRes";
+import { processRes } from "../utils/processRes";
 export const getPageIndexDate = pageNum => {
   return testDB
     .collection("requestUrl")
@@ -29,7 +29,6 @@ export const getIndexAdvertising = pageNum => {
     .collection("indexAdvertising")
     .get()
     .then(res => {
-      // res.data 包含该记录的数据
       return res;
     });
 };
