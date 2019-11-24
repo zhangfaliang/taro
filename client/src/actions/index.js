@@ -60,3 +60,9 @@ export const clearData = () => {
     type: PAGE_INDEX_CLEAR
   };
 };
+
+export const initPage = () => {
+  return {
+    type: INIT_PAGE
+  };
+};

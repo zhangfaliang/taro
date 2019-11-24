@@ -8,7 +8,8 @@ import {
   getData,
   getDataUpper,
   getDataLower,
-  setPageIndexDetail
+  setPageIndexDetail,
+  initPage
 } from "../../actions/index";
 import { makePageIndex, makeFeed } from "../../selects/pageIndex";
 import { makeCounter } from "../../selects/count";
@@ -70,7 +71,7 @@ class Toggle extends Component {
       openLayer: true,
       pics,
       index,
-      isPic:true
+      isPic: true
     });
     Taro.navigateTo({
       url: `/pages/index_detail/index`
@@ -94,14 +95,15 @@ class Toggle extends Component {
     });
   };
   componentWillMount() {
-    const { feedData, asyncPageIndexGetData } = this.props;
+    const { feedData, asyncPageIndexGetData, initPage } = this.props;
     const { feed } = feedData;
-
+    initPage();
     isEmpty(feed) && asyncPageIndexGetData(0);
   }
   render() {
     const { feedData } = this.props;
     const { feed } = feedData;
+    console.log(this.props);
     return (
       <View>
         {/* <Search /> */}

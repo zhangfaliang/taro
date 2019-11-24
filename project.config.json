@@ -1,7 +1,7 @@
 {
 	"miniprogramRoot": "client/dist/",
 	"cloudfunctionRoot": "cloud/functions/",
-	"projectname": "myApp",
+	"projectname": "joke",
 	"description": "搞笑",
 	"appid": "wx76a81c356b265c5c",
 	"setting": {
