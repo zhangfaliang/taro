@@ -32,10 +32,10 @@ class Node extends Component {
           });
         }}
       >
-        <View className={styles.play}>
+        {/* <View className={styles.play}>
           <Image src={playPng} alt=""/>
         </View>
-        <Image src={page_pic} />
+        <Image src={page_pic} /> */}
       </View>
     );
   }
